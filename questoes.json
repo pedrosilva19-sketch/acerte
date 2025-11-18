@@ -1,0 +1,118 @@
+{
+  "questoes": [
+    {
+      "id": 1,
+      "titulo": "Questão 1",
+      "enunciado": "A Inteligência Artificial (IA) está cada vez mais presente no nosso dia a dia, sendo aplicada em diversas tarefas, sejam elas complexas ou banais. Um exemplo de IA que explodiu no ano de 2023 e vem sendo amplamente usada é o:",
+      "alternativas": [
+        { "letra": "A", "texto": "Seico.", "correta": false },
+        { "letra": "B", "texto": "ChatGPT.", "correta": true },
+        { "letra": "C", "texto": "EcoSystem.", "correta": false },
+        { "letra": "D", "texto": "Robotox.", "correta": false }
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "Questão 2",
+      "enunciado": "A inteligência artificial (IA) tem transformado diversos setores, como saúde, educação e transporte. No entanto, seu avanço também levanta questões éticas, como o uso de algoritmos que podem perpetuar vieses e discriminações. Além disso, há preocupações sobre o impacto da IA no mercado de trabalho, com a automação de funções antes desempenhadas por humanos. Um dos principais desafios éticos associados ao uso da inteligência artificial na sociedade contemporânea é:",
+      "alternativas": [
+        { "letra": "A", "texto": "Aumento da oferta de empregos em setores tradicionais.", "correta": false },
+        { "letra": "B", "texto": "Redução do consumo de energia elétrica.", "correta": false },
+        { "letra": "C", "texto": "Potencialização de vieses e discriminações sociais.", "correta": true },
+        { "letra": "D", "texto": "Diminuição da dependência de tecnologias digitais.", "correta": false },
+        { "letra": "E", "texto": "Eliminação de desigualdades econômicas.", "correta": false }
+      ]
+    },
+    {
+      "id": 3,
+      "titulo": "Questão 3",
+      "enunciado": "A Inteligência Artificial (IA) é usada para automatizar tarefas que normalmente exigiriam inteligência humana, como interpretar linguagem, reconhecer padrões, tomar decisões e aprender com dados. Com o avanço dessas tecnologias, surgiram ferramentas especializadas em diferentes aplicações, como produção de texto, análise de dados e geração de conteúdo visual. Assinale a alternativa que apresenta a ferramenta de IA cuja principal função é gerar imagens a partir de descrições textuais.",
+      "alternativas": [
+        { "letra": "A", "texto": "You.com.", "correta": false },
+        { "letra": "B", "texto": "Quillbot.", "correta": false },
+        { "letra": "C", "texto": "DALL·E.", "correta": true },
+        { "letra": "D", "texto": "Microsoft Copilot.", "correta": false },
+        { "letra": "E", "texto": "Notion AI.", "correta": false }
+      ]
+    },
+    {
+      "id": 4,
+      "titulo": "Questão 4",
+      "enunciado": "A Inteligência Artificial é um ramo da ciência da computação que busca criar sistemas capazes de simular a inteligência humana. Qual das seguintes áreas não está diretamente relacionada à Inteligência Artificial?",
+      "alternativas": [
+        { "letra": "A", "texto": "Processamento de Linguagem Natural.", "correta": false },
+        { "letra": "B", "texto": "Visão Computacional.", "correta": false },
+        { "letra": "C", "texto": "Robótica.", "correta": false },
+        { "letra": "D", "texto": "Compiladores.", "correta": true },
+        { "letra": "E", "texto": "Sistemas Especialistas.", "correta": false }
+      ]
+    },
+    {
+      "id": 5,
+      "titulo": "Questão 5",
+      "enunciado": "Em 2025, a inteligência artificial está cada vez mais presente em áreas como saúde, educação e segurança. Um dos principais debates sobre o uso da IA está relacionado a:",
+      "alternativas": [
+        { "letra": "A", "texto": "O fim do uso de computadores em empresas.", "correta": false },
+        { "letra": "B", "texto": "Seu alto custo de manutenção em países pobres.", "correta": false },
+        { "letra": "C", "texto": "O impacto sobre empregos e questões éticas.", "correta": true },
+        { "letra": "D", "texto": "A massificação do plágio e pirataria.", "correta": false }
+      ]
+    },
+    {
+      "id": 6,
+      "titulo": "Questão 6",
+      "enunciado": "A Inteligência Artificial (IA) tem se tornado uma forte presença na rotina das pessoas. Os recursos de IA vêm contribuindo para otimizar o tempo, mas também têm provocado muitas controvérsias. São exemplos de plataformas que possibilitam aos usuários utilizarem a IA na elaboração de materiais e resolução de problemas: I. ChatGPT. II. Gemini. III. DeepSeek. Quais estão corretos?",
+      "alternativas": [
+        { "letra": "A", "texto": "Apenas I.", "correta": false },
+        { "letra": "B", "texto": "Apenas II.", "correta": false },
+        { "letra": "C", "texto": "Apenas I e III.", "correta": false },
+        { "letra": "D", "texto": "Apenas II e III.", "correta": false },
+        { "letra": "E", "texto": "I, II e III.", "correta": true }
+      ]
+    },
+    {
+      "id": 7,
+      "titulo": "Questão 7",
+      "enunciado": "A inteligência artificial (IA) generativa, como o ChatGPT, tem se destacado na produção de textos e imagens a partir de comandos em linguagem natural. No entanto, o uso dessa tecnologia em áreas como educação e comunicação levanta debates sobre a necessidade de regulamentação, devido a preocupações como:",
+      "alternativas": [
+        { "letra": "A", "texto": "Aumento da produtividade e criatividade dos usuários, que podem gerar conteúdos mais rapidamente e com maior qualidade.", "correta": false },
+        { "letra": "B", "texto": "Disseminação de informações falsas e enviesadas.", "correta": true },
+        { "letra": "C", "texto": "Redução do custo de produção de conteúdo.", "correta": false },
+        { "letra": "D", "texto": "Melhora da qualidade da educação.", "correta": false }
+      ]
+    },
+    {
+      "id": 8,
+      "titulo": "Questão 8",
+      "enunciado": "Acerca do uso de inteligência artificial (IA) pelos tribunais, temos experiências bem-sucedidas no Brasil, as quais mostram a relevância da tecnologia para a melhoria da eficiência de atividades. Sobre o ponto, assinale a alternativa mais adequada.",
+      "alternativas": [
+        { "letra": "A", "texto": "A IA deve ser usada como fonte principal na fundamentação de decisões judiciais.", "correta": false },
+        { "letra": "B", "texto": "A IA pode ser usada como ferramenta auxiliar, devendo haver transparência em seu uso.", "correta": true },
+        { "letra": "C", "texto": "A IA deve substituir servidores e juízes leigos em decisões interlocutórias.", "correta": false }
+      ]
+    },
+    {
+      "id": 9,
+      "titulo": "Questão 9",
+      "enunciado": "Relacione os termos de Inteligência Artificial (IA) às suas respectivas definições. 1. IA fraca 2. IA forte 3. IA generativa 4. Teste de Turing.",
+      "alternativas": [
+        { "letra": "A", "texto": "(1) única tarefa; (2) multitarefa; (3) gera novos resultados; (4) máquina se passa por humano.", "correta": true },
+        { "letra": "B", "texto": "IA fraca é medida de inteligência; IA forte é algoritmo generativo.", "correta": false },
+        { "letra": "C", "texto": "IA generativa é sistema multitarefa; Teste de Turing é tarefa única.", "correta": false },
+        { "letra": "D", "texto": "IA fraca é multitarefa; IA forte é tarefa única.", "correta": false }
+      ]
+    },
+    {
+      "id": 10,
+      "titulo": "Questão 10",
+      "enunciado": "A inteligência artificial (IA) é um avanço tecnológico que permite que sistemas simulem uma inteligência similar à humana. Em relação à IA, assinalar a alternativa CORRETA:",
+      "alternativas": [
+        { "letra": "A", "texto": "Encontra-se ultrapassada e restrita a acadêmicos.", "correta": false },
+        { "letra": "B", "texto": "A IA reproduz habilidades humanas por meio de computadores e máquinas.", "correta": true },
+        { "letra": "C", "texto": "A IA traz impactos apenas no campo pessoal.", "correta": false },
+        { "letra": "D", "texto": "A IA tem emoção e consciência.", "correta": false },
+        { "letra": "E", "texto": "A IA substituirá totalmente o ser humano.", "correta": false }
+      ]
+    }
+  ]
+}

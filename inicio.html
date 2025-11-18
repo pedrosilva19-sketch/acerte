@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acerte! • Preparação Inteligente para Concursos</title>
+  <link rel="stylesheet" href="css/inicio.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="imgs/icone.png" type="image/jpeg">
+  
+  <!-- AOS Animation Library -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+
+  <video class="bg-video" autoplay loop muted playsinline>
+    <source src="../imgs/140578-775389242.mp4" type="video/mp4">
+  </video>  
+
+  <section class="hero">
+    <div class="overlay"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+      <img src="imgs/icone.png" alt="Logo Acerte!" class="logo-nav">
+      <ul>
+        <li><a href="#">Início</a></li>
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </nav>
+
+    <!-- Conteúdo Hero -->
+    <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
+      <h2>Preparação definitiva para concursos públicos</h2>
+      <h1>Torne-se mais forte<br>resolvendo questões todos os dias</h1>
+      
+      <button onclick="irQuestao()" class="btn-action">
+        Iniciar Treino Agora
+      </button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Acerte! • Plataforma desenvolvida com foco em aprovação</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="src/index.js"></script>
+  <script>
+    // Inicializa animações AOS
+    AOS.init({
+      once: true,
+      duration: 1000,
+      easing: 'ease-out-cubic'
+    });
+
+    // Efeito navbar ao scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
