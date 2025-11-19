@@ -148,11 +148,11 @@ function verificarResposta() {
     const btnContinuar = document.getElementById('btn-continuar');
 
     if (acertou) {
-        msg.textContent = "Correto! Excelente! Well done!";
+        msg.textContent = "Parabéns você acertou!";
         msg.style.color = '#00ff99';
         btnContinuar.style.background = 'linear-gradient(90deg, #00ff99, #00cc66)';
     } else {
-        msg.textContent = "Errado! A resposta correta está destacada.";
+        msg.textContent = "Ops, Resposta errada!";
         msg.style.color = '#ff6666';
         btnContinuar.style.background = 'linear-gradient(90deg, #ff4444, #cc0000)';
         btnContinuar.style.color = 'white';
@@ -215,10 +215,10 @@ function mostrarResultadoFinal() {
         </h2>
         <p style="font-size:2.4rem; color:#00ff99;">${percentual}% de acerto</p>
         <p style="font-size:1.8rem; margin:30px 0;">
-            ${acertos >= 9 ? 'GÊNIO DA IA! Well done!' :
-              acertos >= 7 ? 'Excelente desempenho! Well done!' :
-              acertos >= 5 ? 'Muito bom! Continue assim!' :
-              'Valeu o esforço! Estude mais e volte com tudo! Well done!'}
+            ${acertos >= 9 ? 'GÊNIAL!' :
+              acertos >= 7 ? 'Excelente desempenho!' :
+              acertos >= 5 ? 'Muito bom, Continue assim!' :
+              'Valeu o esforço, Estude mais e volte com tudo!'}
         </p>
         <button class="botao-responder" onclick="reiniciarQuiz()" style="margin-top:20px; padding:16px 50px; font-size:1.3rem;">
             Jogar Novamente

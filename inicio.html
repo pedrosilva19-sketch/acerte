@@ -22,7 +22,10 @@
 
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
-      <img src="imgs/icone.png" alt="Logo Acerte!" class="logo-nav">
+      <div style="display: flex; align-items: center; gap: 15px;">
+        <img src="imgs/icone.png" alt="Logo Acerte!" class="logo-nav">
+        <span style="color: #fff; font-weight: 700; font-size: 1.4rem;">Acerte!</span>
+      </div>
       <ul>
         <li><a href="#">Início</a></li>
         <li><a href="#sobre">Sobre</a></li>
@@ -33,9 +36,9 @@
     <!-- Conteúdo Hero -->
     <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
       <h2>Preparação definitiva para concursos públicos</h2>
-      <h1>Torne-se mais forte<br>resolvendo questões todos os dias</h1>
+      <h1>Aprenda mais<br>resolvendo questões todos os dias</h1>
       
-      <button onclick="irQuestao()" class="btn-action">
+      <button class="btn-action" id="btn-action">
         Iniciar Treino Agora
       </button>
     </div>
@@ -47,7 +50,7 @@
 
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="src/rotas.js"></script>
-  <script src="src/aos.js"></script>
+  <script src="src/rotas.js" defer></script>
+  <script src="src/aos.js" defer></script>
 </body>
 </html>

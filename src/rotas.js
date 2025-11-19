@@ -2,6 +2,4 @@ function irQuestao(){
     window.location.href = 'Questões.html';
 }
 
-function irQuiz(){
-    window.location.href = "Resultado.html";
-}
+document.querySelector("#btn-action").addEventListener("click", irQuestao);

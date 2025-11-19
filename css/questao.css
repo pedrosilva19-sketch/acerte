@@ -437,3 +437,127 @@ header h1 {
     -webkit-text-fill-color: transparent;
     text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+/* Correções para o navbar na página de questões */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1000;
+    transition: all 0.4s ease;
+    backdrop-filter: blur(12px);
+    background: rgba(15, 36, 65, 0.7);
+    border-bottom: 1px solid rgba(120, 169, 255, 0.15);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar.scrolled {
+    padding: 15px 60px;
+    background: rgba(15, 36, 65, 0.9);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.logo-nav {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #78a9ff;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(120, 169, 255, 0.3);
+}
+
+.logo-nav:hover {
+    transform: rotate(360deg) scale(1.1);
+}
+
+.navbar ul {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+}
+
+.navbar ul li a {
+    color: #e0e0e0;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    position: relative;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -8px;
+    left: 50%;
+    background: #78a9ff;
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+}
+
+.navbar ul li a:hover {
+    color: #78a9ff;
+}
+
+.navbar ul li a:hover::after {
+    width: 100%;
+}
+
+/* Ajuste no container principal para não ficar atrás do navbar */
+.centralizar-tudo {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px 20px; /* Adicionado padding-top para o navbar */
+    position: relative;
+    z-index: 2;
+}
+
+/* Correção para o vídeo de fundo */
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -999;
+    filter: brightness(70%) contrast(110%);
+    pointer-events: none;
+}
+
+/* Overlay corrigido */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 25, 47, 0.7);
+    backdrop-filter: blur(1px);
+    z-index: -1;
+}
+
+/* Responsividade para o navbar */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .navbar ul {
+        gap: 20px;
+    }
+    
+    .centralizar-tudo {
+        padding: 120px 15px 15px;
+    }
+}
