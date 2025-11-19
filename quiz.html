@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acerte! • Quiz</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="css/questao.css">
+    <link rel="icon" href="imgs/icone.png" type="image/jpeg">
+</head>
+<body>
+
+    <!-- Vídeo de fundo -->
+    <video autoplay muted loop playsinline class="bg-video">
+        <source src="../imgs/140578-775389242.mp4" type="video/mp4">
+        Infelizmente, Seu navegador não suporta vídeo.
+    </video>
+
+    <!-- Overlay escuro + blur -->
+    <div class="overlay"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="imgs/icone.png" alt="Logo Acerte!" class="logo-nav">
+            <span style="color: #fff; font-weight: 700; font-size: 1.4rem;">Acerte!</span>
+        </div>
+        <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="index.html#sobre">Sobre</a></li>
+            <li><a href="index.html#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <!-- Centralização total da tela (questões bem no meio) -->
+    <main class="centralizar-tudo">
+        <div class="container">
+            
+            <!-- Progresso e questão -->
+            <div id="questao-atual">
+                <div id="progresso">
+                    Questão <span id="atual">1</span> de <span id="total">10</span>
+                </div>
+                <header>
+                    <h1 id="titulo"></h1>
+                </header>
+                <div class="questao">
+                    <p id="enunciado"></p>
+                </div>
+                <div id="opcoes" class="opcoes"></div>
+
+                <!-- Botões -->
+                <div class="botoes-centro">
+                    <button id="btn-voltar" class="botao-responder" onclick="voltarQuestao()">
+                        ← Voltar
+                    </button>
+                    <button id="btn-proximo" class="botao-responder" onclick="verificarResposta()" disabled>
+                        Próxima →
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tela final -->
+            <div id="tela-final" style="display:none; text-align:center;">
+                <h1>Quiz Finalizado!</h1>
+                <div id="resultado-final" style="font-size:2.8rem; margin:40px 0; font-weight:800;"></div>
+                <button class="botao-responder" onclick="location.reload()">Jogar Novamente</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Popup de feedback -->
+    <div id="popup" class="popup-overlay">
+        <div class="popup-content">
+            <p id="popup-message"></p>
+            <button id="btn-continuar" onclick="fecharPopup()">Continuar</button>
+        </div>
+    </div>
+
+    <script src="src/quiz.js" defer></script>
+</body>
+</html>

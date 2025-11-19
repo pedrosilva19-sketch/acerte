@@ -1,5 +1,5 @@
 function irQuestao(){
-    window.location.href = 'Questões.html';
+    window.location.href = 'quiz.html';
 }
 
 document.querySelector("#btn-action").addEventListener("click", irQuestao);
