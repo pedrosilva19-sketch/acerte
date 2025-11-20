@@ -17,17 +17,8 @@
   <section class="hero">
     <div class="overlay"></div>
 
-    <nav class="navbar" id="navbar">
-      <div style="display: flex; align-items: center; gap: 15px;">
-        <img id="logo-nav" src="imgs/logo.jpg" alt="Logo Acerte!" class="logo-nav">
-        <span id="logo-text" style="color: #fff; font-weight: 700; font-size: 1.4rem;">Acerte!</span>
-      </div>
-      <ul>
-        <li><a href="index.html">Início</a></li>
-        <li><a href="#sobre">Sobre</a></li>
-        <li><a href="#contato">Contato</a></li>
-      </ul>
-    </nav>
+    <!-- Componente Navbar -->
+    <div id="navbar-container"></div>
 
     <div class="hero-content" data-aos="fade-up" data-aos-duration="1200">
       <h2>Preparação definitiva para concursos públicos</h2>
@@ -39,12 +30,12 @@
     </div>
   </section>
 
-  <footer>
-    <p>© 2025 Acerte! • Plataforma desenvolvida com foco em aprovação</p>
-  </footer>
+  <!-- Componente Footer -->
+  <div id="footer-container"></div>
 
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script src="src/rotas.js" defer></script>
   <script src="src/aos.js" defer></script>
+  <script src="src/components.js" defer></script>
 </body>
 </html>

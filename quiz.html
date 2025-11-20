@@ -1,83 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acerte! • Quiz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acerte! • Quiz</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/quiz.css">
+  <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
 </head>
-
 <body>
-    <video autoplay muted loop playsinline class="bg-video">
-        <source src="videos/background.mp4" type="video/mp4">
-        Infelizmente, Seu navegador não suporta vídeo.
-    </video>
+  <video autoplay muted loop playsinline class="bg-video">
+    <source src="videos/background.mp4" type="video/mp4">
+    Infelizmente, Seu navegador não suporta vídeo.
+  </video>
 
-    <div class="overlay"></div>
+  <div class="overlay"></div>
 
-    <nav class="navbar" id="navbar">
-        <div style="display: flex; align-items: center; gap: 15px;">
-            <img id="logo-nav" src="imgs/logo.jpg" alt="Logo Acerte!" class="logo-nav">
-            <span id="logo-text" style="color: #fff; font-weight: 700; font-size: 1.4rem;">Acerte!</span>
+  <!-- Componente Navbar -->
+  <div id="navbar-container"></div>
+
+  <main class="centralizar-tudo">
+    <div class="container">
+      <div id="questao-atual">
+        <div id="progresso">
+          Questão <span id="atual">1</span> de <span id="total">10</span>
         </div>
-        <ul>
-            <li><a href="index.html">Início</a></li>
-            <li><a href="index.html#sobre">Sobre</a></li>
-            <li><a href="index.html#contato">Contato</a></li>
-        </ul>
-    </nav>
-
-    <main class="centralizar-tudo">
-        <div class="container">
-
-            <div id="questao-atual">
-                <div id="progresso">
-                    Questão <span id="atual">1</span> de <span id="total">10</span>
-                </div>
-                <header>
-                    <h1 id="titulo"></h1>
-                </header>
-                <div class="questao">
-                    <p id="enunciado"></p>
-                </div>
-                <div id="opcoes" class="opcoes"></div>
-
-                <div class="botoes-centro">
-                    <button id="btn-voltar" class="botao-responder" onclick="voltarQuestao()">
-                        ← Voltar
-                    </button>
-                    <button id="btn-proximo" class="botao-responder" onclick="verificarResposta()" disabled>
-                        Próxima →
-                    </button>
-                </div>
-            </div>
-
-            <div id="tela-final" style="display:none; text-align:center;">
-                <h1>Quiz Finalizado!</h1>
-                <div id="resultado-final" style="font-size:2.8rem; margin:40px 0; font-weight:800;"></div>
-                <button class="botao-responder" onclick="jogarNovamente()">Jogar Novamente</button>
-            </div>
+        <header>
+          <h1 id="titulo"></h1>
+        </header>
+        <div class="questao">
+          <p id="enunciado"></p>
         </div>
-    </main>
+        <div id="opcoes" class="opcoes"></div>
 
-    <footer>
-        <p>© 2025 Acerte! • Plataforma desenvolvida com foco em aprovação</p>
-    </footer>
-
-    <div id="popup" class="popup-overlay">
-        <div class="popup-content">
-            <p id="popup-message"></p>
-            <button id="btn-continuar" onclick="fecharPopup()">Continuar</button>
+        <div class="botoes-centro">
+          <button id="btn-voltar" class="botao-responder" onclick="voltarQuestao()">
+            ← Voltar
+          </button>
+          <button id="btn-proximo" class="botao-responder" onclick="verificarResposta()" disabled>
+            Próxima →
+          </button>
         </div>
+      </div>
+
+      <div id="tela-final" style="display:none; text-align:center;">
+        <h1>Quiz Finalizado!</h1>
+        <div id="resultado-final" style="font-size:2.8rem; margin:40px 0; font-weight:800;"></div>
+        <button class="botao-responder" onclick="jogarNovamente()">Jogar Novamente</button>
+      </div>
     </div>
+  </main>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script src="src/quiz.js" defer></script>
-    <script src="src/rotas.js" defer></script>
-    <script src="src/aos.js" defer></script>
+  <!-- Componente Footer -->
+  <div id="footer-container"></div>
+
+  <div id="popup" class="popup-overlay">
+    <div class="popup-content">
+      <p id="popup-message"></p>
+      <button id="btn-continuar" onclick="fecharPopup()">Continuar</button>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="src/quiz.js" defer></script>
+  <script src="src/rotas.js" defer></script>
+  <script src="src/aos.js" defer></script>
+  <script src="src/components.js" defer></script>
 </body>
-
 </html>
