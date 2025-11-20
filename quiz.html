@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,11 +10,12 @@
     <link rel="stylesheet" href="css/index.css">
     <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
 </head>
+
 <body>
 
     <!-- Vídeo de fundo -->
     <video autoplay muted loop playsinline class="bg-video">
-        <source src="../imgs/140578-775389242.mp4" type="video/mp4">
+        <source src="imgs/background.mp4" type="video/mp4">
         Infelizmente, Seu navegador não suporta vídeo.
     </video>
 
@@ -23,8 +25,8 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div style="display: flex; align-items: center; gap: 15px;">
-            <img src="imgs/logo.jpg" alt="Logo Acerte!" class="logo-nav">
-            <span style="color: #fff; font-weight: 700; font-size: 1.4rem;">Acerte!</span>
+            <img id="logo-nav" src="imgs/logo.jpg" alt="Logo Acerte!" class="logo-nav">
+            <span id="logo-text" style="color: #fff; font-weight: 700; font-size: 1.4rem;">Acerte!</span>
         </div>
         <ul>
             <li><a href="index.html">Início</a></li>
@@ -36,7 +38,7 @@
     <!-- Centralização total da tela (questões bem no meio) -->
     <main class="centralizar-tudo">
         <div class="container">
-            
+
             <!-- Progresso e questão -->
             <div id="questao-atual">
                 <div id="progresso">
@@ -65,10 +67,15 @@
             <div id="tela-final" style="display:none; text-align:center;">
                 <h1>Quiz Finalizado!</h1>
                 <div id="resultado-final" style="font-size:2.8rem; margin:40px 0; font-weight:800;"></div>
-                <button class="botao-responder" onclick="location.reload()">Jogar Novamente</button>
+                <button class="botao-responder" onclick="jogarNovamente()">Jogar Novamente</button>
             </div>
         </div>
     </main>
+
+    <!-- Footer Simples -->
+    <footer>
+        <p>© 2025 Acerte! • Plataforma desenvolvida com foco em aprovação</p>
+    </footer>
 
     <!-- Popup de feedback -->
     <div id="popup" class="popup-overlay">
@@ -79,5 +86,7 @@
     </div>
 
     <script src="src/quiz.js" defer></script>
+    <script src="src/rotas.js" defer></script>
 </body>
+
 </html>

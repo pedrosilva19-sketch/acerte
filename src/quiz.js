@@ -1,91 +1,46 @@
-// ======================================================================
-// CONFIGURAÇÕES INICIAIS E VARIÁVEIS DO SISTEMA
-// ======================================================================
-
 const STORAGE_KEY = 'quiz_ia_respostas_2025';
+
 let todasQuestoes = [];
 let questoesSorteadas = [];
 let indiceAtual = 0;
 let acertos = 0;
 let respostasUsuario = {};
-let dadosSalvos = null;
 
-// ======================================================================
-// CARREGA DADOS SALVOS
-// ======================================================================
-function carregarDadosSalvos() {
-    const salvo = localStorage.getItem(STORAGE_KEY);
-    if (salvo) {
-        dadosSalvos = JSON.parse(salvo);
-        respostasUsuario = dadosSalvos.respostas || {};
-        indiceAtual = dadosSalvos.indiceAtual || 0;
-        acertos = dadosSalvos.acertos || 0;
-        questoesSorteadas = dadosSalvos.questoesSorteadas || [];
-    }
-}
-
-function salvarDados() {
-    const dados = {
-        respostas: respostasUsuario,
-        indiceAtual: indiceAtual,
-        acertos: acertos,
-        questoesSorteadas: questoesSorteadas,
-        data: new Date().toISOString()
-    };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
-}
-
-// ======================================================================
-// SORTEIA 10 QUESTÕES ALEATÓRIAS
-// ======================================================================
-function sortearQuestoes(questoes, quantidade = 10) {
-    // Embaralha o array de questões
+function sortearNovasQuestoes(questoes, quantidade = 10) {
     const embaralhadas = [...questoes].sort(() => Math.random() - 0.5);
-    // Pega as primeiras 'quantidade' questões
-    return embaralhadas.slice(0, quantidade);
+
+    return embaralhadas.slice(0, quantidade).map((questao, index) => ({
+        ...questao,
+        id: index + 1,
+        titulo: `Questão ${index + 1}`
+    }));
 }
 
-// ======================================================================
-// CARREGA QUESTÕES DO JSON
-// ======================================================================
+function inicializarQuiz() {
+    questoesSorteadas = sortearNovasQuestoes(todasQuestoes, 10);
+    indiceAtual = 0;
+    acertos = 0;
+    respostasUsuario = {};
+    
+    document.getElementById('total').textContent = 10;
+    document.getElementById('questao-atual').style.display = 'block';
+    document.getElementById('tela-final').style.display = 'none';
+    
+    atualizarBotoes();
+    mostrarQuestao();
+}
+
 fetch('questoes.json')
     .then(res => res.json())
     .then(data => {
         todasQuestoes = data.questoes;
-        
-        carregarDadosSalvos();
-
-        // Se não há questões sorteadas salvas, sorteia 10 novas
-        if (questoesSorteadas.length === 0) {
-            questoesSorteadas = sortearQuestoes(todasQuestoes, 10);
-            // Renumera os IDs para 1 a 10
-            questoesSorteadas = questoesSorteadas.map((questao, index) => ({
-                ...questao,
-                id: index + 1,
-                titulo: `Questão ${index + 1}`
-            }));
-            indiceAtual = 0;
-            acertos = 0;
-            respostasUsuario = {};
-            salvarDados();
-        }
-
-        document.getElementById('total').textContent = 10;
-
-        // Mostra a tela do quiz
-        document.getElementById('questao-atual').style.display = 'block';
-
-        atualizarBotoes();
-        mostrarQuestao();
+        inicializarQuiz();
     })
     .catch(err => {
         console.error('Erro:', err);
         alert('Não foi possível carregar as questões. Verifique o arquivo questoes.json');
     });
 
-// ======================================================================
-// EXIBE A QUESTÃO ATUAL
-// ======================================================================
 function mostrarQuestao() {
     if (indiceAtual >= 10) {
         mostrarResultadoFinal();
@@ -110,15 +65,12 @@ function mostrarQuestao() {
             document.querySelectorAll('.opcao').forEach(op => op.classList.remove('selecionada'));
             this.classList.add('selecionada');
             respostasUsuario[indiceAtual] = alt.letra;
-
             document.getElementById('btn-proximo').disabled = false;
-            salvarDados();
         };
 
         opcoesDiv.appendChild(div);
     });
 
-    // Restaura seleção salva (se houver)
     if (respostasUsuario[indiceAtual]) {
         document.querySelectorAll('.opcao').forEach(op => {
             if (op.querySelector('.letra').textContent === respostasUsuario[indiceAtual]) {
@@ -133,9 +85,6 @@ function mostrarQuestao() {
     atualizarBotoes();
 }
 
-// ======================================================================
-// ATUALIZA BOTÕES
-// ======================================================================
 function atualizarBotoes() {
     const btnVoltar = document.getElementById('btn-voltar');
     btnVoltar.style.display = indiceAtual === 0 ? 'none' : 'block';
@@ -144,9 +93,6 @@ function atualizarBotoes() {
     btnProximo.textContent = indiceAtual === 9 ? 'Finalizar Quiz' : 'Próxima →';
 }
 
-// ======================================================================
-// VERIFICA RESPOSTA E MOSTRA POPUP
-// ======================================================================
 function verificarResposta() {
     const resposta = respostasUsuario[indiceAtual];
     if (!resposta) {
@@ -158,7 +104,6 @@ function verificarResposta() {
     const altEscolhida = q.alternativas.find(a => a.letra === resposta);
     const acertou = altEscolhida && (altEscolhida.correta === true || altEscolhida.correta === "true");
 
-    // Marca visualmente correta/errada
     document.querySelectorAll('.opcao').forEach(op => {
         op.classList.remove('correta', 'errada');
         const letra = op.querySelector('.letra').textContent;
@@ -171,7 +116,6 @@ function verificarResposta() {
         }
     });
 
-    // Popup
     const msg = document.getElementById('popup-message');
     const popup = document.getElementById('popup');
     const btnContinuar = document.getElementById('btn-continuar');
@@ -187,39 +131,26 @@ function verificarResposta() {
         btnContinuar.style.color = 'white';
     }
 
-    popup.style.display = 'flex'; // mostra o popup
+    popup.style.display = 'flex';
 }
 
-// ======================================================================
-// FECHA POPUP E AVANÇA
-// ======================================================================
 function fecharPopup() {
     document.getElementById('popup').style.display = 'none';
-
-    calcularAcertosTotais();
 
     if (indiceAtual === 9) {
         mostrarResultadoFinal();
     } else {
         indiceAtual++;
-        salvarDados();
         mostrarQuestao();
     }
 }
 
-// ======================================================================
-// VOLTA QUESTÃO
-// ======================================================================
 function voltarQuestao() {
     if (indiceAtual === 0) return;
     indiceAtual--;
-    salvarDados();
     mostrarQuestao();
 }
 
-// ======================================================================
-// RESULTADO FINAL
-// ======================================================================
 function calcularAcertosTotais() {
     acertos = 0;
     for (let i = 0; i < 10; i++) {
@@ -252,10 +183,6 @@ function mostrarResultadoFinal() {
     `;
 }
 
-// ======================================================================
-// REINICIAR QUIZ
-// ======================================================================
-function reiniciarQuiz() {
-    localStorage.removeItem(STORAGE_KEY);
-    location.reload();
+function jogarNovamente() {
+    inicializarQuiz();
 }
