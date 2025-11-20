@@ -3,7 +3,8 @@
 // ======================================================================
 
 const STORAGE_KEY = 'quiz_ia_respostas_2025';
-let questoes = [];
+let todasQuestoes = [];
+let questoesSorteadas = [];
 let indiceAtual = 0;
 let acertos = 0;
 let respostasUsuario = {};
@@ -19,6 +20,7 @@ function carregarDadosSalvos() {
         respostasUsuario = dadosSalvos.respostas || {};
         indiceAtual = dadosSalvos.indiceAtual || 0;
         acertos = dadosSalvos.acertos || 0;
+        questoesSorteadas = dadosSalvos.questoesSorteadas || [];
     }
 }
 
@@ -27,9 +29,20 @@ function salvarDados() {
         respostas: respostasUsuario,
         indiceAtual: indiceAtual,
         acertos: acertos,
+        questoesSorteadas: questoesSorteadas,
         data: new Date().toISOString()
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(dados));
+}
+
+// ======================================================================
+// SORTEIA 10 QUESTÕES ALEATÓRIAS
+// ======================================================================
+function sortearQuestoes(questoes, quantidade = 10) {
+    // Embaralha o array de questões
+    const embaralhadas = [...questoes].sort(() => Math.random() - 0.5);
+    // Pega as primeiras 'quantidade' questões
+    return embaralhadas.slice(0, quantidade);
 }
 
 // ======================================================================
@@ -38,10 +51,26 @@ function salvarDados() {
 fetch('questoes.json')
     .then(res => res.json())
     .then(data => {
-        questoes = data.questoes;
-        document.getElementById('total').textContent = questoes.length;
-
+        todasQuestoes = data.questoes;
+        
         carregarDadosSalvos();
+
+        // Se não há questões sorteadas salvas, sorteia 10 novas
+        if (questoesSorteadas.length === 0) {
+            questoesSorteadas = sortearQuestoes(todasQuestoes, 10);
+            // Renumera os IDs para 1 a 10
+            questoesSorteadas = questoesSorteadas.map((questao, index) => ({
+                ...questao,
+                id: index + 1,
+                titulo: `Questão ${index + 1}`
+            }));
+            indiceAtual = 0;
+            acertos = 0;
+            respostasUsuario = {};
+            salvarDados();
+        }
+
+        document.getElementById('total').textContent = 10;
 
         // Mostra a tela do quiz
         document.getElementById('questao-atual').style.display = 'block';
@@ -58,15 +87,15 @@ fetch('questoes.json')
 // EXIBE A QUESTÃO ATUAL
 // ======================================================================
 function mostrarQuestao() {
-    if (indiceAtual >= questoes.length) {
+    if (indiceAtual >= 10) {
         mostrarResultadoFinal();
         return;
     }
 
-    const q = questoes[indiceAtual];
+    const q = questoesSorteadas[indiceAtual];
 
     document.getElementById('atual').textContent = indiceAtual + 1;
-    document.getElementById('titulo').textContent = q.titulo;
+    document.getElementById('titulo').textContent = `Questão ${indiceAtual + 1}`;
     document.getElementById('enunciado').innerHTML = q.enunciado;
 
     const opcoesDiv = document.getElementById('opcoes');
@@ -112,7 +141,7 @@ function atualizarBotoes() {
     btnVoltar.style.display = indiceAtual === 0 ? 'none' : 'block';
 
     const btnProximo = document.getElementById('btn-proximo');
-    btnProximo.textContent = indiceAtual === questoes.length - 1 ? 'Finalizar Quiz' : 'Próxima →';
+    btnProximo.textContent = indiceAtual === 9 ? 'Finalizar Quiz' : 'Próxima →';
 }
 
 // ======================================================================
@@ -125,7 +154,7 @@ function verificarResposta() {
         return;
     }
 
-    const q = questoes[indiceAtual];
+    const q = questoesSorteadas[indiceAtual];
     const altEscolhida = q.alternativas.find(a => a.letra === resposta);
     const acertou = altEscolhida && (altEscolhida.correta === true || altEscolhida.correta === "true");
 
@@ -169,7 +198,7 @@ function fecharPopup() {
 
     calcularAcertosTotais();
 
-    if (indiceAtual === questoes.length - 1) {
+    if (indiceAtual === 9) {
         mostrarResultadoFinal();
     } else {
         indiceAtual++;
@@ -193,10 +222,10 @@ function voltarQuestao() {
 // ======================================================================
 function calcularAcertosTotais() {
     acertos = 0;
-    for (let i = 0; i < questoes.length; i++) {
+    for (let i = 0; i < 10; i++) {
         const resp = respostasUsuario[i];
         if (resp) {
-            const alt = questoes[i].alternativas.find(a => a.letra === resp);
+            const alt = questoesSorteadas[i].alternativas.find(a => a.letra === resp);
             if (alt && (alt.correta === true || alt.correta === "true")) acertos++;
         }
     }
@@ -204,14 +233,14 @@ function calcularAcertosTotais() {
 
 function mostrarResultadoFinal() {
     calcularAcertosTotais();
-    const percentual = Math.round((acertos / questoes.length) * 100);
+    const percentual = Math.round((acertos / 10) * 100);
 
     document.getElementById('questao-atual').style.display = 'none';
     document.getElementById('tela-final').style.display = 'block';
 
     document.getElementById('resultado-final').innerHTML = `
         <h2 style="font-size:3.5rem; margin:20px 0; background: linear-gradient(90deg, #00ff99, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-            ${acertos} / ${questoes.length}
+            ${acertos} / 10
         </h2>
         <p style="font-size:2.4rem; color:#00ff99;">${percentual}% de acerto</p>
         <p style="font-size:1.8rem; margin:30px 0;">
@@ -220,12 +249,12 @@ function mostrarResultadoFinal() {
               acertos >= 5 ? 'Muito bom, Continue assim!' :
               'Valeu o esforço, Estude mais e volte com tudo!'}
         </p>
-        <button class="botao-responder" onclick="reiniciarQuiz()" style="margin-top:20px; padding:16px 50px; font-size:1.3rem;">
-            Jogar Novamente
-        </button>
     `;
 }
 
+// ======================================================================
+// REINICIAR QUIZ
+// ======================================================================
 function reiniciarQuiz() {
     localStorage.removeItem(STORAGE_KEY);
     location.reload();
