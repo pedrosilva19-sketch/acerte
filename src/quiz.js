@@ -30,7 +30,7 @@ function inicializarQuiz() {
     mostrarQuestao();
 }
 
-fetch('questoes.json')
+fetch('quiz.json')
     .then(res => res.json())
     .then(data => {
         todasQuestoes = data.questoes;
