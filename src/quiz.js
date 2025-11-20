@@ -21,11 +21,11 @@ function inicializarQuiz() {
     indiceAtual = 0;
     acertos = 0;
     respostasUsuario = {};
-    
+
     document.getElementById('total').textContent = 10;
     document.getElementById('questao-atual').style.display = 'block';
     document.getElementById('tela-final').style.display = 'none';
-    
+
     atualizarBotoes();
     mostrarQuestao();
 }
@@ -37,8 +37,8 @@ fetch('quiz.json')
         inicializarQuiz();
     })
     .catch(err => {
-        console.error('Erro:', err);
-        alert('Não foi possível carregar as questões. Verifique o arquivo questoes.json');
+        console.error('Erro ao carregar quiz:', err);
+        alert('Não foi possível carregar as questões. Verifique o arquivo quiz.json.');
     });
 
 function mostrarQuestao() {
@@ -47,23 +47,27 @@ function mostrarQuestao() {
         return;
     }
 
-    const q = questoesSorteadas[indiceAtual];
+    const questao = questoesSorteadas[indiceAtual];
 
     document.getElementById('atual').textContent = indiceAtual + 1;
     document.getElementById('titulo').textContent = `Questão ${indiceAtual + 1}`;
-    document.getElementById('enunciado').innerHTML = q.enunciado;
+    document.getElementById('enunciado').innerHTML = questao.enunciado;
 
     const opcoesDiv = document.getElementById('opcoes');
     opcoesDiv.innerHTML = '';
 
-    q.alternativas.forEach(alt => {
+    questao.alternativas.forEach(alt => {
         const div = document.createElement('div');
         div.className = 'opcao';
-        div.innerHTML = `<div class="letra">${alt.letra}</div><span>${alt.texto}</span>`;
+        div.innerHTML = `
+            <div class="letra">${alt.letra}</div>
+            <span>${alt.texto}</span>
+        `;
 
-        div.onclick = function () {
+        div.onclick = () => {
             document.querySelectorAll('.opcao').forEach(op => op.classList.remove('selecionada'));
-            this.classList.add('selecionada');
+            div.classList.add('selecionada');
+
             respostasUsuario[indiceAtual] = alt.letra;
             document.getElementById('btn-proximo').disabled = false;
         };
@@ -95,24 +99,26 @@ function atualizarBotoes() {
 
 function verificarResposta() {
     const resposta = respostasUsuario[indiceAtual];
+
     if (!resposta) {
         alert('Selecione uma alternativa!');
         return;
     }
 
-    const q = questoesSorteadas[indiceAtual];
-    const altEscolhida = q.alternativas.find(a => a.letra === resposta);
+    const questao = questoesSorteadas[indiceAtual];
+    const altEscolhida = questao.alternativas.find(a => a.letra === resposta);
     const acertou = altEscolhida && (altEscolhida.correta === true || altEscolhida.correta === "true");
 
-    document.querySelectorAll('.opcao').forEach(op => {
-        op.classList.remove('correta', 'errada');
-        const letra = op.querySelector('.letra').textContent;
-        const alt = q.alternativas.find(a => a.letra === letra);
+    document.querySelectorAll('.opcao').forEach(opcao => {
+        opcao.classList.remove('correta', 'errada');
 
-        if (alt.correta === true || alt.correta === "true") {
-            op.classList.add('correta');
+        const letra = opcao.querySelector('.letra').textContent;
+        const alternativa = questao.alternativas.find(a => a.letra === letra);
+
+        if (alternativa.correta === true || alternativa.correta === "true") {
+            opcao.classList.add('correta');
         } else if (letra === resposta) {
-            op.classList.add('errada');
+            opcao.classList.add('errada');
         }
     });
 
@@ -139,10 +145,11 @@ function fecharPopup() {
 
     if (indiceAtual === 9) {
         mostrarResultadoFinal();
-    } else {
-        indiceAtual++;
-        mostrarQuestao();
+        return;
     }
+
+    indiceAtual++;
+    mostrarQuestao();
 }
 
 function voltarQuestao() {
@@ -153,27 +160,39 @@ function voltarQuestao() {
 
 function calcularAcertosTotais() {
     acertos = 0;
+
     for (let i = 0; i < 10; i++) {
         const resp = respostasUsuario[i];
         if (resp) {
             const alt = questoesSorteadas[i].alternativas.find(a => a.letra === resp);
-            if (alt && (alt.correta === true || alt.correta === "true")) acertos++;
+            if (alt && (alt.correta === true || alt.correta === "true")) {
+                acertos++;
+            }
         }
     }
 }
 
 function mostrarResultadoFinal() {
     calcularAcertosTotais();
-    const percentual = Math.round((acertos / 10) * 100);
 
+    const percentual = Math.round((acertos / 10) * 100);
     document.getElementById('questao-atual').style.display = 'none';
     document.getElementById('tela-final').style.display = 'block';
 
     document.getElementById('resultado-final').innerHTML = `
-        <h2 style="font-size:3.5rem; margin:20px 0; background: linear-gradient(90deg, #00ff99, #00ccff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+        <h2 style="
+            font-size:3.5rem; margin:20px 0;
+            background: linear-gradient(90deg, #00ff99, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        ">
             ${acertos} / 10
         </h2>
-        <p style="font-size:2.4rem; color:#00ff99;">${percentual}% de acerto</p>
+
+        <p style="font-size:2.4rem; color:#00ff99;">
+            ${percentual}% de acerto
+        </p>
+
         <p style="font-size:1.8rem; margin:30px 0;">
             ${acertos >= 9 ? 'GÊNIAL!' :
               acertos >= 7 ? 'Excelente desempenho!' :
