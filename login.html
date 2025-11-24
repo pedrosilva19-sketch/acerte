@@ -8,11 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <style>
-    
-  </style>
-  <!-- Ícones para redes sociais -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <video class="bg-video" autoplay loop muted playsinline>
@@ -55,30 +50,8 @@
         
         <button type="submit" class="btn-login">Entrar na Conta</button>
         
-        <div class="login-divider">
-          <span>Ou entre com</span>
-        </div>
-        
-        <div class="social-login">
-          <button type="button" class="btn-social">
-            <i class="fab fa-google"></i>
-            Google
-          </button>
-          <button type="button" class="btn-social">
-            <i class="fab fa-facebook-f"></i>
-            Facebook
-          </button>
-        </div>
-        
         <div class="register-link">
           Não tem uma conta? <a href="register.html">Cadastre-se</a>
-        </div>
-        
-        <!-- Área de contas de demonstração (opcional) -->
-        <div class="demo-accounts">
-          <h3>Contas de Demonstração</h3>
-          <p><strong>Estudante:</strong> estudante@acerte.com / senha: 123456</p>
-          <p><strong>Premium:</strong> premium@acerte.com / senha: 123456</p>
         </div>
       </form>
     </div>
@@ -144,33 +117,20 @@
           return;
         }
         
-        // Simulação de login
-        // Contas de demonstração para teste
-        const demoAccounts = {
-          'estudante@acerte.com': '123456',
-          'premium@acerte.com': '123456'
-        };
+        // Simulação de login bem-sucedido
+        formMessage.className = 'form-message success';
+        formMessage.textContent = 'Login realizado com sucesso! Redirecionando...';
         
-        // Verificar se é uma conta de demonstração
-        if (demoAccounts[email] && password === demoAccounts[email]) {
-          formMessage.className = 'form-message success';
-          formMessage.textContent = 'Login realizado com sucesso! Redirecionando...';
-          
-          // Salvar preferência "Lembrar-me" (simulação)
-          if (remember) {
-            localStorage.setItem('rememberLogin', 'true');
-            localStorage.setItem('userEmail', email);
-          }
-          
-          // Simular redirecionamento após login
-          setTimeout(function() {
-            window.location.href = 'dashboard.html';
-          }, 1500);
-        } else {
-          // Simulação de verificação no backend
-          formMessage.className = 'form-message error';
-          formMessage.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+        // Salvar preferência "Lembrar-me" (simulação)
+        if (remember) {
+          localStorage.setItem('rememberLogin', 'true');
+          localStorage.setItem('userEmail', email);
         }
+        
+        // Simular redirecionamento após login
+        setTimeout(function() {
+          window.location.href = 'dashboard.html';
+        }, 1500);
       });
       
       // Preencher e-mail salvo se "Lembrar-me" estava ativo
@@ -181,21 +141,6 @@
         document.getElementById('email').value = savedEmail;
         document.getElementById('remember').checked = true;
       }
-      
-      // Login com redes sociais (simulação)
-      document.querySelectorAll('.btn-social').forEach(button => {
-        button.addEventListener('click', function() {
-          const provider = this.textContent.trim();
-          formMessage.className = 'form-message success';
-          formMessage.textContent = `Redirecionando para login com ${provider}...`;
-          
-          // Em um cenário real, aqui seria o redirecionamento para OAuth
-          setTimeout(function() {
-            formMessage.className = 'form-message error';
-            formMessage.textContent = 'Integração com redes sociais em desenvolvimento. Use as contas de demonstração.';
-          }, 2000);
-        });
-      });
       
       // Função para validar e-mail
       function isValidEmail(email) {
