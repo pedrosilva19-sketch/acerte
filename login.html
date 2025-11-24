@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login • Acerte!</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    
+  </style>
+  <!-- Ícones para redes sociais -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <video class="bg-video" autoplay loop muted playsinline>
+    <source src="videos/background.mp4" type="video/mp4">
+  </video>  
+
+  <section class="login-container">
+    <div class="overlay"></div>
+
+    <!-- Componente Navbar -->
+    <div id="navbar-container"></div>
+
+    <div class="login-card" data-aos="fade-up" data-aos-duration="1000">
+      <div class="login-header">
+        <h1>Fazer Login</h1>
+        <p>Entre na sua conta e continue sua preparação</p>
+      </div>
+      
+      <form id="login-form">
+        <div id="form-message" class="form-message"></div>
+        
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" id="password" class="form-control" placeholder="Digite sua senha" required>
+          <button type="button" class="password-toggle" id="toggle-password">Mostrar</button>
+        </div>
+        
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="remember">
+            Lembrar-me
+          </label>
+          <a href="forgot-password.html" class="forgot-password">Esqueci a senha</a>
+        </div>
+        
+        <button type="submit" class="btn-login">Entrar na Conta</button>
+        
+        <div class="login-divider">
+          <span>Ou entre com</span>
+        </div>
+        
+        <div class="social-login">
+          <button type="button" class="btn-social">
+            <i class="fab fa-google"></i>
+            Google
+          </button>
+          <button type="button" class="btn-social">
+            <i class="fab fa-facebook-f"></i>
+            Facebook
+          </button>
+        </div>
+        
+        <div class="register-link">
+          Não tem uma conta? <a href="register.html">Cadastre-se</a>
+        </div>
+        
+        <!-- Área de contas de demonstração (opcional) -->
+        <div class="demo-accounts">
+          <h3>Contas de Demonstração</h3>
+          <p><strong>Estudante:</strong> estudante@acerte.com / senha: 123456</p>
+          <p><strong>Premium:</strong> premium@acerte.com / senha: 123456</p>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Componente Footer -->
+  <div id="footer-container"></div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="src/rotas.js" defer></script>
+  <script src="src/aos.js" defer></script>
+  <script src="src/components.js" defer></script>
+  
+  <script>
+    // Script específico para a página de login
+    document.addEventListener('DOMContentLoaded', function() {
+      // Inicializar AOS
+      if (typeof AOS !== 'undefined') {
+        AOS.init();
+      }
+      
+      // Alternar visibilidade da senha
+      const togglePassword = document.getElementById('toggle-password');
+      const passwordInput = document.getElementById('password');
+      
+      togglePassword.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        togglePassword.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
+      });
+      
+      // Validação do formulário
+      const loginForm = document.getElementById('login-form');
+      const formMessage = document.getElementById('form-message');
+      
+      loginForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Limpar mensagens anteriores
+        formMessage.className = 'form-message';
+        formMessage.textContent = '';
+        
+        // Obter valores dos campos
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const remember = document.getElementById('remember').checked;
+        
+        // Validações básicas
+        let isValid = true;
+        let errorMessage = '';
+        
+        if (!isValidEmail(email)) {
+          isValid = false;
+          errorMessage = 'Por favor, insira um e-mail válido.';
+        } else if (password.length < 1) {
+          isValid = false;
+          errorMessage = 'Por favor, insira sua senha.';
+        }
+        
+        if (!isValid) {
+          formMessage.className = 'form-message error';
+          formMessage.textContent = errorMessage;
+          return;
+        }
+        
+        // Simulação de login
+        // Contas de demonstração para teste
+        const demoAccounts = {
+          'estudante@acerte.com': '123456',
+          'premium@acerte.com': '123456'
+        };
+        
+        // Verificar se é uma conta de demonstração
+        if (demoAccounts[email] && password === demoAccounts[email]) {
+          formMessage.className = 'form-message success';
+          formMessage.textContent = 'Login realizado com sucesso! Redirecionando...';
+          
+          // Salvar preferência "Lembrar-me" (simulação)
+          if (remember) {
+            localStorage.setItem('rememberLogin', 'true');
+            localStorage.setItem('userEmail', email);
+          }
+          
+          // Simular redirecionamento após login
+          setTimeout(function() {
+            window.location.href = 'dashboard.html';
+          }, 1500);
+        } else {
+          // Simulação de verificação no backend
+          formMessage.className = 'form-message error';
+          formMessage.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+        }
+      });
+      
+      // Preencher e-mail salvo se "Lembrar-me" estava ativo
+      const savedEmail = localStorage.getItem('userEmail');
+      const rememberLogin = localStorage.getItem('rememberLogin');
+      
+      if (savedEmail && rememberLogin === 'true') {
+        document.getElementById('email').value = savedEmail;
+        document.getElementById('remember').checked = true;
+      }
+      
+      // Login com redes sociais (simulação)
+      document.querySelectorAll('.btn-social').forEach(button => {
+        button.addEventListener('click', function() {
+          const provider = this.textContent.trim();
+          formMessage.className = 'form-message success';
+          formMessage.textContent = `Redirecionando para login com ${provider}...`;
+          
+          // Em um cenário real, aqui seria o redirecionamento para OAuth
+          setTimeout(function() {
+            formMessage.className = 'form-message error';
+            formMessage.textContent = 'Integração com redes sociais em desenvolvimento. Use as contas de demonstração.';
+          }, 2000);
+        });
+      });
+      
+      // Função para validar e-mail
+      function isValidEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      }
+    });
+  </script>
+</body>
+</html>
