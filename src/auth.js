@@ -1,39 +1,91 @@
-// Sistema de Autenticação
+// Sistema de Autenticação - CORRIGIDO
 class AuthSystem {
     constructor() {
         this.users = JSON.parse(localStorage.getItem('acerte_users')) || [];
         this.currentUser = JSON.parse(localStorage.getItem('acerte_current_user')) || null;
+        console.log('AuthSystem iniciado. Usuário atual:', this.currentUser);
+        this.init();
     }
 
-    // Registrar novo usuário
-    register(name, email, password) {
-        // Verificar se email já existe
-        if (this.users.find(user => user.email === email)) {
-            return { success: false, message: 'Este e-mail já está cadastrado.' };
+    init() {
+        this.setupEventListeners();
+        this.updateNavigation();
+    }
+
+    setupEventListeners() {
+        // Login form
+        const loginForm = document.getElementById('login-form');
+        if (loginForm) {
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleLogin();
+            });
         }
 
-        // Criar novo usuário
+        // Register form
+        const registerForm = document.getElementById('register-form');
+        if (registerForm) {
+            registerForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                this.handleRegister();
+            });
+        }
+
+        // Logout - usando event delegation
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'logout-btn') {
+                e.preventDefault();
+                this.logout();
+            }
+        });
+
+        // Botão de ação na página inicial
+        const btnAction = document.getElementById('btn-action');
+        if (btnAction) {
+            btnAction.addEventListener('click', () => {
+                if (this.isLoggedIn()) {
+                    window.location.href = 'quiz.html';
+                } else {
+                    window.location.href = 'login.html';
+                }
+            });
+        }
+    }
+
+    register(name, email, password) {
+        console.log('Tentando registrar:', email);
+        
+        // Verificar se email já existe
+        if (this.users.find(user => user.email === email)) {
+            return { success: false, message: 'Este e-mail já está cadastrado!' };
+        }
+
         const newUser = {
             id: Date.now().toString(),
-            name,
-            email,
-            password,
+            name: name.trim(),
+            email: email.toLowerCase().trim(),
+            password: password,
             createdAt: new Date().toISOString()
         };
 
         this.users.push(newUser);
         localStorage.setItem('acerte_users', JSON.stringify(this.users));
+        console.log('Usuário registrado:', newUser);
 
-        // Login automático após registro
+        // Login automático
         return this.login(email, password);
     }
 
-    // Login do usuário
     login(email, password, rememberMe = false) {
-        const user = this.users.find(u => u.email === email && u.password === password);
+        console.log('Tentando login:', email);
+        
+        const user = this.users.find(u => 
+            u.email === email.toLowerCase().trim() && 
+            u.password === password
+        );
         
         if (!user) {
-            return { success: false, message: 'E-mail ou senha incorretos.' };
+            return { success: false, message: 'E-mail ou senha incorretos!' };
         }
 
         this.currentUser = user;
@@ -43,58 +95,77 @@ class AuthSystem {
             localStorage.setItem('acerte_remember_me', 'true');
         }
 
-        this.updateUI();
+        console.log('Login realizado com sucesso:', user.name);
+        this.updateNavigation();
         return { success: true, message: 'Login realizado com sucesso!' };
     }
 
-    // Logout
     logout() {
+        console.log('Fazendo logout');
         this.currentUser = null;
         localStorage.removeItem('acerte_current_user');
-        this.updateUI();
+        this.updateNavigation();
         window.location.href = 'index.html';
     }
 
-    // Verificar se usuário está logado
     isLoggedIn() {
         return this.currentUser !== null;
     }
 
-    // Atualizar interface baseada no estado de login
-    updateUI() {
-        const authItem = document.getElementById('auth-item');
+    updateNavigation() {
+        console.log('Atualizando navegação...');
+        
         const loginLink = document.getElementById('login-link');
         const userDropdown = document.getElementById('user-dropdown');
         const usernameDisplay = document.getElementById('username-display');
 
-        if (authItem && loginLink && userDropdown) {
-            if (this.isLoggedIn()) {
+        console.log('Elementos encontrados:', {
+            loginLink: !!loginLink,
+            userDropdown: !!userDropdown,
+            usernameDisplay: !!usernameDisplay,
+            loggedIn: this.isLoggedIn()
+        });
+
+        if (this.isLoggedIn()) {
+            // USUÁRIO LOGADO - mostrar dropdown
+            if (loginLink) {
                 loginLink.style.display = 'none';
+                console.log('Login link escondido');
+            }
+            if (userDropdown) {
                 userDropdown.style.display = 'flex';
-                if (usernameDisplay) {
-                    usernameDisplay.textContent = this.currentUser.name.split(' ')[0];
-                }
-            } else {
+                console.log('User dropdown mostrado');
+            }
+            if (usernameDisplay) {
+                usernameDisplay.textContent = this.currentUser.name.split(' ')[0];
+                console.log('Nome do usuário atualizado:', this.currentUser.name.split(' ')[0]);
+            }
+        } else {
+            // USUÁRIO NÃO LOGADO - mostrar link de login
+            if (loginLink) {
                 loginLink.style.display = 'block';
+                console.log('Login link mostrado');
+            }
+            if (userDropdown) {
                 userDropdown.style.display = 'none';
+                console.log('User dropdown escondido');
             }
         }
     }
 
-    // Manipular login
     handleLogin() {
-        const email = document.getElementById('login-email')?.value;
-        const password = document.getElementById('login-password')?.value;
-        const rememberMe = document.getElementById('remember-me')?.checked;
-        const loginBtn = document.getElementById('login-btn');
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+        const rememberMe = document.getElementById('remember-me')?.checked || false;
         const message = document.getElementById('login-message');
+        const loginBtn = document.getElementById('login-btn');
 
         if (!email || !password) {
-            this.showMessage(message, 'Por favor, preencha todos os campos.', 'error');
+            this.showMessage(message, 'Por favor, preencha todos os campos!', 'error');
             return;
         }
 
-        // Desabilitar botão
+        // Loading state
         if (loginBtn) {
             loginBtn.disabled = true;
             loginBtn.textContent = 'Entrando...';
@@ -119,38 +190,37 @@ class AuthSystem {
         }, 1000);
     }
 
-    // Manipular registro
     handleRegister() {
-        const name = document.getElementById('register-name')?.value;
-        const email = document.getElementById('register-email')?.value;
-        const password = document.getElementById('register-password')?.value;
-        const confirmPassword = document.getElementById('register-confirm-password')?.value;
-        const acceptTerms = document.getElementById('accept-terms')?.checked;
-        const registerBtn = document.getElementById('register-btn');
+        const name = document.getElementById('register-name').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+        const confirmPassword = document.getElementById('register-confirm-password').value;
+        const acceptTerms = document.getElementById('accept-terms').checked;
         const message = document.getElementById('register-message');
+        const registerBtn = document.getElementById('register-btn');
 
         // Validações
         if (!name || !email || !password || !confirmPassword) {
-            this.showMessage(message, 'Por favor, preencha todos os campos.', 'error');
+            this.showMessage(message, 'Por favor, preencha todos os campos!', 'error');
             return;
         }
 
         if (password.length < 6) {
-            this.showMessage(message, 'A senha deve ter pelo menos 6 caracteres.', 'error');
+            this.showMessage(message, 'A senha deve ter pelo menos 6 caracteres!', 'error');
             return;
         }
 
         if (password !== confirmPassword) {
-            this.showMessage(message, 'As senhas não coincidem.', 'error');
+            this.showMessage(message, 'As senhas não coincidem!', 'error');
             return;
         }
 
         if (!acceptTerms) {
-            this.showMessage(message, 'Você deve aceitar os termos de uso.', 'error');
+            this.showMessage(message, 'Você deve aceitar os termos de uso!', 'error');
             return;
         }
 
-        // Desabilitar botão
+        // Loading state
         if (registerBtn) {
             registerBtn.disabled = true;
             registerBtn.textContent = 'Criando conta...';
@@ -175,7 +245,6 @@ class AuthSystem {
         }, 1000);
     }
 
-    // Mostrar mensagens
     showMessage(element, text, type) {
         if (!element) return;
         
@@ -183,57 +252,22 @@ class AuthSystem {
         element.className = 'form-message ' + type;
         element.style.opacity = '1';
 
-        // Auto-esconder após 5 segundos
         setTimeout(() => {
             element.style.opacity = '0';
         }, 5000);
     }
 }
 
-// Função global para alternar visibilidade da senha
+// Função global para mostrar/ocultar senha
 function togglePassword(inputId) {
     const input = document.getElementById(inputId);
     if (input) {
-        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-        input.setAttribute('type', type);
+        input.type = input.type === 'password' ? 'text' : 'password';
     }
 }
 
-// Inicializar sistema de autenticação
-function initializeAuthSystem() {
+// Inicializar imediatamente quando o DOM carregar
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM carregado - inicializando AuthSystem');
     window.authSystem = new AuthSystem();
-    
-    // Configurar eventos de formulário
-    const loginForm = document.getElementById('login-form');
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            window.authSystem.handleLogin();
-        });
-    }
-
-    const registerForm = document.getElementById('register-form');
-    if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            window.authSystem.handleRegister();
-        });
-    }
-
-    // Configurar logout
-    const logoutBtn = document.getElementById('logout-btn');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.authSystem.logout();
-        });
-    }
-
-    // Atualizar UI inicial
-    window.authSystem.updateUI();
-}
-
-// Executar quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', () => {
-    initializeAuthSystem();
 });

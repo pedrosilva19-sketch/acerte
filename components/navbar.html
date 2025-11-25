@@ -1,24 +1,25 @@
 <nav class="navbar">
-  <div class="navbar-brand">
-      <img id="logo-nav" src="imgs/logo.jpg" alt="Acerte!" class="logo-nav">
-      <span id="logo-text">Acerte!</span>
-  </div>
-  
-  <ul class="navbar-menu">
-      <li><a href="index.html">Início</a></li>
-      <li><a href="about.html">Sobre nós</a></li>
-      <li id="auth-item">
-          <!-- Link de Login (visível quando não logado) -->
-          <a href="login.html" id="login-link">Login</a>
-          
-          <!-- Dropdown do Usuário (visível quando logado) -->
-          <div class="dropdown" id="user-dropdown" style="display: none;">
-              <span id="username-display">Usuário</span>
-              <div class="dropdown-content">
-                  <a href="profile.html">Meu Perfil</a>
-                  <a href="#" id="logout-btn">Sair</a>
-              </div>
-          </div>
-      </li>
-  </ul>
+    <div class="navbar-brand">
+        <img id="logo-nav" src="imgs/logo.jpg" alt="Acerte!" class="logo-nav">
+        <span id="logo-text">Acerte!</span>
+    </div>
+    
+    <ul class="navbar-menu">
+        <li><a href="index.html">Início</a></li>
+        <li><a href="quiz.html">Quiz</a></li>
+        <li><a href="sobre.html">Sobre Nós</a></li>
+        <li id="auth-item">
+            <!-- Login link (visível quando NÃO logado) -->
+            <a href="login.html" id="login-link" style="display: block;">Login</a>
+            
+            <!-- User dropdown (visível quando logado) -->
+            <div class="dropdown" id="user-dropdown" style="display: none;">
+                <span id="username-display">Usuário</span>
+                <div class="dropdown-content">
+                    <a href="profile.html">Meu Perfil</a>
+                    <a href="#" id="logout-btn">Sair</a>
+                </div>
+            </div>
+        </li>
+    </ul>
 </nav>

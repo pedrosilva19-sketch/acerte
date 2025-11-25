@@ -1,72 +1,66 @@
-// Carregar componentes reutilizáveis
+// Carregar componentes
 function loadComponents() {
-    // Carregar navbar
+    loadNavbar();
+    loadFooter();
+}
+
+function loadNavbar() {
     fetch('components/navbar.html')
-        .then(response => {
-            if (!response.ok) throw new Error('Navbar não encontrada');
-            return response.text();
-        })
-        .then(data => {
-            const navbarContainer = document.getElementById('navbar-container');
-            if (navbarContainer) {
-                navbarContainer.innerHTML = data;
+        .then(response => response.text())
+        .then(html => {
+            const container = document.getElementById('navbar-container');
+            if (container) {
+                container.innerHTML = html;
                 setupNavbarEvents();
-                // Inicializar auth system após navbar carregar
-                if (typeof authSystem !== 'undefined') {
-                    authSystem.updateUI();
-                }
+                
+                // ATUALIZAR NAVEGAÇÃO APÓS NAVBAR CARREGAR
+                setTimeout(() => {
+                    if (window.authSystem) {
+                        console.log('Atualizando navegação após navbar carregar');
+                        window.authSystem.updateNavigation();
+                    }
+                }, 100);
             }
         })
         .catch(error => console.error('Erro ao carregar navbar:', error));
+}
 
-    // Carregar footer
+function loadFooter() {
     fetch('components/footer.html')
-        .then(response => {
-            if (!response.ok) throw new Error('Footer não encontrado');
-            return response.text();
-        })
-        .then(data => {
-            const footerContainer = document.getElementById('footer-container');
-            if (footerContainer) footerContainer.innerHTML = data;
+        .then(response => response.text())
+        .then(html => {
+            const container = document.getElementById('footer-container');
+            if (container) container.innerHTML = html;
         })
         .catch(error => console.error('Erro ao carregar footer:', error));
 }
 
-// Configurar eventos da navbar
 function setupNavbarEvents() {
-    function irInicio() {
-        window.location.href = "index.html";
-    }
-
-    const logoNav = document.getElementById("logo-nav");
-    const logoText = document.getElementById("logo-text");
-
-    if (logoNav) {
-        logoNav.addEventListener("click", irInicio);
-    }
-
-    if (logoText) {
-        logoText.addEventListener("click", irInicio);
-    }
+    // Eventos de clique na logo
+    document.addEventListener('click', function(e) {
+        if (e.target.id === 'logo-nav' || e.target.id === 'logo-text') {
+            window.location.href = 'index.html';
+        }
+    });
 }
 
-// Configurar eventos específicos da página
+// Configurar eventos da página
 function setupPageEvents() {
-    const btnAction = document.getElementById("btn-action");
-    
+    const btnAction = document.getElementById('btn-action');
     if (btnAction) {
-        btnAction.addEventListener("click", function() {
+        btnAction.addEventListener('click', function() {
             if (window.authSystem && window.authSystem.isLoggedIn()) {
-                window.location.href = "quiz.html";
+                window.location.href = 'quiz.html';
             } else {
-                window.location.href = "login.html";
+                window.location.href = 'login.html';
             }
         });
     }
 }
 
-// Executar quando o DOM estiver carregado
-document.addEventListener('DOMContentLoaded', () => {
+// Inicializar quando DOM carregar
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Iniciando componentes...');
     loadComponents();
     setupPageEvents();
 });
