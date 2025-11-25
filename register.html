@@ -1,365 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Criar Conta • Acerte!</title>
+  <title>Cadastro • Acerte!</title>
   <link rel="stylesheet" href="css/index.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-
 <body>
   <video class="bg-video" autoplay loop muted playsinline>
     <source src="videos/background.mp4" type="video/mp4">
   </video>
 
-  <section class="register-container">
+  <section class="login-container">
     <div class="overlay"></div>
-
+    
     <!-- Componente Navbar -->
     <div id="navbar-container"></div>
 
-    <div class="register-card" data-aos="fade-up" data-aos-duration="1000">
-      <div class="register-header">
-        <h1>Criar Conta</h1>
-        <p>Junte-se à comunidade Acerte! e comece sua preparação</p>
+    <div class="login-card">
+      <div class="login-header">
+        <h1>Cadastro</h1>
+        <p>Crie sua conta para começar</p>
       </div>
 
       <form id="register-form">
-        <div id="form-message" class="form-message"></div>
-
+        <div class="form-message" id="register-message"></div>
+        
         <div class="form-group">
-          <label for="name">Nome Completo</label>
-          <input type="text" id="name" class="form-control" placeholder="Digite seu nome completo" required>
-          <div id="name-feedback" class="form-feedback"></div>
+          <label for="register-name">Nome Completo</label>
+          <input type="text" id="register-name" class="form-control" required placeholder="Seu nome completo">
         </div>
 
         <div class="form-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
-          <div id="email-feedback" class="form-feedback"></div>
+          <label for="register-email">E-mail</label>
+          <input type="email" id="register-email" class="form-control" required placeholder="seu@email.com">
         </div>
 
         <div class="form-group">
-          <label for="password">Senha</label>
-          <input type="password" id="password" class="form-control" placeholder="Crie uma senha forte" required>
-          <button type="button" class="password-toggle" id="toggle-password">Mostrar</button>
-          <div class="password-strength">
-            <div class="password-strength-bar" id="password-strength-bar"></div>
-          </div>
-          <div class="password-strength-text" id="password-strength-text">Força da senha</div>
-          <div id="password-feedback" class="form-feedback"></div>
+          <label for="register-password">Senha</label>
+          <input type="password" id="register-password" class="form-control" required placeholder="Mínimo 6 caracteres" minlength="6">
+          <button type="button" class="password-toggle" onclick="togglePassword('register-password')">
+            👁️
+          </button>
         </div>
 
         <div class="form-group">
-          <label for="confirm-password">Confirmar Senha</label>
-          <input type="password" id="confirm-password" class="form-control" placeholder="Digite a senha novamente"
-            required>
-          <button type="button" class="password-toggle" id="toggle-confirm-password">Mostrar</button>
-          <div id="confirm-password-feedback" class="form-feedback"></div>
+          <label for="register-confirm-password">Confirmar Senha</label>
+          <input type="password" id="register-confirm-password" class="form-control" required placeholder="Digite a senha novamente">
+          <button type="button" class="password-toggle" onclick="togglePassword('register-confirm-password')">
+            👁️
+          </button>
         </div>
 
-        <div class="form-check">
-          <input type="checkbox" id="terms" class="form-check-input" required>
-          <label for="terms" class="form-check-label">
-            Concordo com os <a href="#" target="_blank">Termos de Uso</a> e <a href="#" target="_blank">Política de
-              Privacidade</a>
+        <div class="form-options">
+          <label class="remember-me">
+            <input type="checkbox" id="accept-terms" required>
+            Aceito os <a href="#" style="color: var(--primary);">termos de uso</a>
           </label>
         </div>
 
-        <button type="submit" class="btn-register" id="btn-register">
-          <span id="btn-text">Criar Conta</span>
+        <button type="submit" class="btn-login" id="register-btn">
+          Criar Conta
         </button>
 
-        <div class="login-link">
-          Já tem uma conta? <a href="login.html">Faça login</a>
+        <div class="register-link">
+          Já tem uma conta? <a href="login.html">Fazer login</a>
         </div>
       </form>
     </div>
   </section>
 
-  <!-- Componente Footer -->
-  <div id="footer-container"></div>
-
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="src/rotas.js" defer></script>
-  <script src="src/aos.js" defer></script>
-  <script src="src/components.js" defer></script>
-
-  <script>
-    // Sistema de banco de dados local com JSON
-    class UserDatabase {
-      constructor() {
-        this.storageKey = 'acerte_users';
-        this.init();
-      }
-
-      init() {
-        // Inicializa o banco de dados se não existir
-        if (!localStorage.getItem(this.storageKey)) {
-          const initialData = {
-            users: [],
-            nextId: 1
-          };
-          localStorage.setItem(this.storageKey, JSON.stringify(initialData));
-        }
-      }
-
-      getDatabase() {
-        return JSON.parse(localStorage.getItem(this.storageKey));
-      }
-
-      saveDatabase(data) {
-        localStorage.setItem(this.storageKey, JSON.stringify(data));
-      }
-
-      emailExists(email) {
-        const db = this.getDatabase();
-        return db.users.some(user => user.email.toLowerCase() === email.toLowerCase());
-      }
-
-      createUser(userData) {
-        const db = this.getDatabase();
-        const newUser = {
-          id: db.nextId++,
-          ...userData,
-          createdAt: new Date().toISOString(),
-          isActive: true,
-          plan: 'free',
-          progress: {
-            questionsAnswered: 0,
-            correctAnswers: 0,
-            streak: 0
-          }
-        };
-
-        db.users.push(newUser);
-        this.saveDatabase(db);
-        return newUser;
-      }
-
-      getUserByEmail(email) {
-        const db = this.getDatabase();
-        return db.users.find(user => user.email.toLowerCase() === email.toLowerCase());
-      }
-
-      getAllUsers() {
-        return this.getDatabase().users;
-      }
-    }
-
-    // Script específico para a página de registro
-    document.addEventListener('DOMContentLoaded', function () {
-      // Inicializar banco de dados
-      const userDB = new UserDatabase();
-
-      // Inicializar AOS
-      if (typeof AOS !== 'undefined') {
-        AOS.init();
-      }
-
-      // Elementos do DOM
-      const registerForm = document.getElementById('register-form');
-      const formMessage = document.getElementById('form-message');
-      const btnRegister = document.getElementById('btn-register');
-      const btnText = document.getElementById('btn-text');
-
-      // Alternar visibilidade da senha
-      const togglePassword = document.getElementById('toggle-password');
-      const passwordInput = document.getElementById('password');
-
-      const toggleConfirmPassword = document.getElementById('toggle-confirm-password');
-      const confirmPasswordInput = document.getElementById('confirm-password');
-
-      togglePassword.addEventListener('click', function () {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        togglePassword.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
-      });
-
-      toggleConfirmPassword.addEventListener('click', function () {
-        const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        confirmPasswordInput.setAttribute('type', type);
-        toggleConfirmPassword.textContent = type === 'password' ? 'Mostrar' : 'Ocultar';
-      });
-
-      // Validação em tempo real
-      const nameInput = document.getElementById('name');
-      const emailInput = document.getElementById('email');
-      const passwordInputField = document.getElementById('password');
-      const confirmPasswordInputField = document.getElementById('confirm-password');
-
-      nameInput.addEventListener('blur', validateName);
-      emailInput.addEventListener('blur', validateEmail);
-      passwordInputField.addEventListener('input', validatePassword);
-      confirmPasswordInputField.addEventListener('blur', validateConfirmPassword);
-
-      // Funções de validação
-      function validateName() {
-        const name = nameInput.value.trim();
-        const feedback = document.getElementById('name-feedback');
-
-        if (name.length < 2) {
-          showFieldError(nameInput, feedback, 'Nome deve ter pelo menos 2 caracteres');
-          return false;
-        } else if (name.length > 100) {
-          showFieldError(nameInput, feedback, 'Nome muito longo (máx. 100 caracteres)');
-          return false;
-        } else {
-          showFieldSuccess(nameInput, feedback, 'Nome válido');
-          return true;
-        }
-      }
-
-      function validateEmail() {
-        const email = emailInput.value.trim();
-        const feedback = document.getElementById('email-feedback');
-
-        if (!isValidEmail(email)) {
-          showFieldError(emailInput, feedback, 'Por favor, insira um e-mail válido');
-          return false;
-        } else if (userDB.emailExists(email)) {
-          showFieldError(emailInput, feedback, 'Este e-mail já está cadastrado');
-          return false;
-        } else {
-          showFieldSuccess(emailInput, feedback, 'E-mail disponível');
-          return true;
-        }
-      }
-
-      function validatePassword() {
-        const password = passwordInputField.value;
-        const feedback = document.getElementById('password-feedback');
-        const strengthBar = document.getElementById('password-strength-bar');
-        const strengthText = document.getElementById('password-strength-text');
-
-        const strength = checkPasswordStrength(password);
-
-        // Atualizar barra de força
-        strengthBar.className = 'password-strength-bar';
-        if (password.length > 0) {
-          strengthBar.classList.add(`strength-${strength.level}`);
-          strengthText.textContent = strength.text;
-        } else {
-          strengthText.textContent = 'Força da senha';
-        }
-
-        if (password.length < 6) {
-          showFieldError(passwordInputField, feedback, 'Senha deve ter pelo menos 6 caracteres');
-          return false;
-        } else if (password.length > 50) {
-          showFieldError(passwordInputField, feedback, 'Senha muito longa (máx. 50 caracteres)');
-          return false;
-        } else {
-          showFieldSuccess(passwordInputField, feedback, 'Senha forte');
-          return true;
-        }
-      }
-
-      function validateConfirmPassword() {
-        const password = passwordInputField.value;
-        const confirmPassword = confirmPasswordInputField.value;
-        const feedback = document.getElementById('confirm-password-feedback');
-
-        if (confirmPassword !== password) {
-          showFieldError(confirmPasswordInputField, feedback, 'As senhas não coincidem');
-          return false;
-        } else if (confirmPassword.length === 0) {
-          showFieldError(confirmPasswordInputField, feedback, 'Confirme sua senha');
-          return false;
-        } else {
-          showFieldSuccess(confirmPasswordInputField, feedback, 'Senhas coincidem');
-          return true;
-        }
-      }
-
-      function checkPasswordStrength(password) {
-        let score = 0;
-
-        if (!password) return { level: 'weak', text: 'Fraca' };
-
-        // Comprimento
-        if (password.length >= 8) score += 1;
-        if (password.length >= 12) score += 1;
-
-        // Complexidade
-        if (/[a-z]/.test(password)) score += 1;
-        if (/[A-Z]/.test(password)) score += 1;
-        if (/[0-9]/.test(password)) score += 1;
-        if (/[^a-zA-Z0-9]/.test(password)) score += 1;
-
-        if (score >= 6) return { level: 'very-strong', text: 'Muito Forte' };
-        if (score >= 5) return { level: 'strong', text: 'Forte' };
-        if (score >= 3) return { level: 'medium', text: 'Média' };
-        return { level: 'weak', text: 'Fraca' };
-      }
-
-      function showFieldError(input, feedback, message) {
-        input.classList.remove('success');
-        input.classList.add('error');
-        feedback.className = 'form-feedback error';
-        feedback.textContent = message;
-      }
-
-      function showFieldSuccess(input, feedback, message) {
-        input.classList.remove('error');
-        input.classList.add('success');
-        feedback.className = 'form-feedback success';
-        feedback.textContent = message;
-      }
-
-      // Validação do formulário
-      registerForm.addEventListener('submit', async function (e) {
-        e.preventDefault();
-
-        const name = nameInput.value.trim();
-        const email = emailInput.value.trim();
-        const password = passwordInputField.value;
-        const termsChecked = document.getElementById('terms').checked;
-
-        if (!termsChecked) {
-          formMessage.className = 'form-message error';
-          formMessage.textContent = 'Você precisa aceitar os termos';
-          return;
-        }
-
-        btnRegister.disabled = true;
-        btnText.innerHTML = 'Criando conta...';
-
-        setTimeout(() => {
-          try {
-            // Agora usa o authSystem para registrar e logar automaticamente
-            window.authSystem.register(name, email, password);
-
-            formMessage.className = 'form-message success';
-            formMessage.textContent = 'Conta criada! Bem-vindo, ' + name.split(' ')[0] + '!';
-
-            setTimeout(() => {
-              window.location.href = 'index.html';
-            }, 1500);
-
-          } catch (err) {
-            formMessage.className = 'form-message error';
-            formMessage.textContent = err.message;
-            btnRegister.disabled = false;
-            btnText.textContent = 'Criar Conta';
-          }
-        }, 1200);
-      });
-
-      // Função para validar e-mail
-      function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-      }
-
-      // Debug: Mostrar usuários no console (remover em produção)
-      console.log('Usuários cadastrados:', userDB.getAllUsers());
-    });
-  </script>
+  <script src="src/auth.js"></script>
+  <script src="src/components.js"></script>
 </body>
-
 </html>

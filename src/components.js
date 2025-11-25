@@ -10,8 +10,11 @@ function loadComponents() {
             const navbarContainer = document.getElementById('navbar-container');
             if (navbarContainer) {
                 navbarContainer.innerHTML = data;
-                setupNavbarEvents(); // Configurar eventos após carregar
-                initializeAuthSystem(); // Inicializar sistema de auth após navbar carregada
+                setupNavbarEvents();
+                // Inicializar auth system após navbar carregar
+                if (typeof authSystem !== 'undefined') {
+                    authSystem.updateUI();
+                }
             }
         })
         .catch(error => console.error('Erro ao carregar navbar:', error));
@@ -35,8 +38,8 @@ function setupNavbarEvents() {
         window.location.href = "index.html";
     }
 
-    const logoNav = document.querySelector("#logo-nav");
-    const logoText = document.querySelector("#logo-text");
+    const logoNav = document.getElementById("logo-nav");
+    const logoText = document.getElementById("logo-text");
 
     if (logoNav) {
         logoNav.addEventListener("click", irInicio);
@@ -47,30 +50,18 @@ function setupNavbarEvents() {
     }
 }
 
-// Inicializar sistema de autenticação após navbar carregar
-function initializeAuthSystem() {
-    // Verificar se o authSystem existe
-    if (typeof authSystem !== 'undefined') {
-        // Forçar atualização da UI
-        setTimeout(() => {
-            authSystem.updateUI();
-            console.log('Sistema de auth inicializado, usuário logado:', authSystem.isLoggedIn());
-        }, 100);
-    } else {
-        console.error('Sistema de autenticação não carregado');
-    }
-}
-
 // Configurar eventos específicos da página
 function setupPageEvents() {
-    function irQuestao() {
-        window.location.href = "quiz.html";
-    }
-
-    const btnAction = document.querySelector("#btn-action");
+    const btnAction = document.getElementById("btn-action");
     
     if (btnAction) {
-        btnAction.addEventListener("click", irQuestao);
+        btnAction.addEventListener("click", function() {
+            if (window.authSystem && window.authSystem.isLoggedIn()) {
+                window.location.href = "quiz.html";
+            } else {
+                window.location.href = "login.html";
+            }
+        });
     }
 }
 

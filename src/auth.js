@@ -1,166 +1,239 @@
-// src/auth.js - VERSÃO CORRIGIDA E DEFINITIVA
+// Sistema de Autenticação
+class AuthSystem {
+    constructor() {
+        this.users = JSON.parse(localStorage.getItem('acerte_users')) || [];
+        this.currentUser = JSON.parse(localStorage.getItem('acerte_current_user')) || null;
+    }
 
-class UserDatabase {
-    constructor() {
-      this.storageKey = 'acerte_users';
-      this.init();
-    }
-  
-    init() {
-      if (!localStorage.getItem(this.storageKey)) {
-        localStorage.setItem(this.storageKey, JSON.stringify({ users: [], nextId: 1 }));
-      }
-    }
-  
-    getDB() {
-      return JSON.parse(localStorage.getItem(this.storageKey));
-    }
-  
-    saveDB(db) {
-      localStorage.setItem(this.storageKey, JSON.stringify(db));
-    }
-  
-    emailExists(email) {
-      return this.getDB().users.some(u => u.email.toLowerCase() === email.toLowerCase());
-    }
-  
-    createUser(userData) {
-      const db = this.getDB();
-      const newUser = {
-        id: db.nextId++,
-        ...userData,
-        createdAt: new Date().toISOString(),
-        isActive: true
-      };
-      db.users.push(newUser);
-      this.saveDB(db);
-      return newUser;
-    }
-  
-    getUserByEmail(email) {
-      return this.getDB().users.find(u => u.email.toLowerCase() === email.toLowerCase());
-    }
-  }
-  
-  class AuthSystem {
-    constructor() {
-      this.currentUser = null;
-      this.db = new UserDatabase();
-      this.init();
-    }
-  
-    init() {
-      const userData = localStorage.getItem('currentUser');
-      if (userData) {
-        this.currentUser = JSON.parse(userData);
-      }
-    }
-  
-    login(email, password, remember = false) {
-      const user = this.db.getUserByEmail(email);
-      if (!user) {
-        throw new Error('E-mail não encontrado');
-      }
-      if (user.password !== password) {
-        throw new Error('Senha incorreta');
-      }
-  
-      // Dados do usuário logado (sem senha!)
-      this.currentUser = {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        createdAt: user.createdAt
-      };
-  
-      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-  
-      if (remember) {
-        localStorage.setItem('rememberLogin', 'true');
-        localStorage.setItem('userEmail', email);
-      } else {
-        localStorage.removeItem('rememberLogin');
-        localStorage.removeItem('userEmail');
-      }
-  
-      this.updateUI();
-      return this.currentUser;
-    }
-  
+    // Registrar novo usuário
     register(name, email, password) {
-      if (this.db.emailExists(email)) {
-        throw new Error('Este e-mail já está cadastrado');
-      }
-  
-      const newUser = this.db.createUser({ name, email, password });
-      
-      // Logar automaticamente após cadastro
-      this.currentUser = {
-        id: newUser.id,
-        name: newUser.name,
-        email: newUser.email,
-        createdAt: newUser.createdAt
-      };
-  
-      localStorage.setItem('currentUser', JSON.stringify(this.currentUser));
-      this.updateUI();
-      return this.currentUser;
+        // Verificar se email já existe
+        if (this.users.find(user => user.email === email)) {
+            return { success: false, message: 'Este e-mail já está cadastrado.' };
+        }
+
+        // Criar novo usuário
+        const newUser = {
+            id: Date.now().toString(),
+            name,
+            email,
+            password,
+            createdAt: new Date().toISOString()
+        };
+
+        this.users.push(newUser);
+        localStorage.setItem('acerte_users', JSON.stringify(this.users));
+
+        // Login automático após registro
+        return this.login(email, password);
     }
-  
+
+    // Login do usuário
+    login(email, password, rememberMe = false) {
+        const user = this.users.find(u => u.email === email && u.password === password);
+        
+        if (!user) {
+            return { success: false, message: 'E-mail ou senha incorretos.' };
+        }
+
+        this.currentUser = user;
+        localStorage.setItem('acerte_current_user', JSON.stringify(user));
+        
+        if (rememberMe) {
+            localStorage.setItem('acerte_remember_me', 'true');
+        }
+
+        this.updateUI();
+        return { success: true, message: 'Login realizado com sucesso!' };
+    }
+
+    // Logout
     logout() {
-      this.currentUser = null;
-      localStorage.removeItem('currentUser');
-      this.updateUI();
-      window.location.href = 'index.html';
+        this.currentUser = null;
+        localStorage.removeItem('acerte_current_user');
+        this.updateUI();
+        window.location.href = 'index.html';
     }
-  
+
+    // Verificar se usuário está logado
     isLoggedIn() {
-      return this.currentUser !== null;
+        return this.currentUser !== null;
     }
-  
-    getCurrentUser() {
-      return this.currentUser;
-    }
-  
+
+    // Atualizar interface baseada no estado de login
     updateUI() {
-      const loginLink = document.getElementById('login-link');
-      const dropdown = document.getElementById('user-dropdown');
-      const usernameDisplay = document.getElementById('username-display');
-  
-      if (!loginLink || !dropdown) {
-        setTimeout(() => this.updateUI(), 300);
-        return;
-      }
-  
-      if (this.isLoggedIn()) {
-        loginLink.style.display = 'none';
-        dropdown.style.display = 'flex';
-        if (usernameDisplay) {
-          usernameDisplay.textContent = this.currentUser.name.split(' ')[0];
+        const authItem = document.getElementById('auth-item');
+        const loginLink = document.getElementById('login-link');
+        const userDropdown = document.getElementById('user-dropdown');
+        const usernameDisplay = document.getElementById('username-display');
+
+        if (authItem && loginLink && userDropdown) {
+            if (this.isLoggedIn()) {
+                loginLink.style.display = 'none';
+                userDropdown.style.display = 'flex';
+                if (usernameDisplay) {
+                    usernameDisplay.textContent = this.currentUser.name.split(' ')[0];
+                }
+            } else {
+                loginLink.style.display = 'block';
+                userDropdown.style.display = 'none';
+            }
         }
-      } else {
-        loginLink.style.display = 'block';
-        dropdown.style.display = 'none';
-      }
     }
-  
-    setupGlobalEvents() {
-      document.addEventListener('click', (e) => {
-        if (e.target.matches('#logout-btn, #logout-btn *')) {
-          e.preventDefault();
-          this.logout();
+
+    // Manipular login
+    handleLogin() {
+        const email = document.getElementById('login-email')?.value;
+        const password = document.getElementById('login-password')?.value;
+        const rememberMe = document.getElementById('remember-me')?.checked;
+        const loginBtn = document.getElementById('login-btn');
+        const message = document.getElementById('login-message');
+
+        if (!email || !password) {
+            this.showMessage(message, 'Por favor, preencha todos os campos.', 'error');
+            return;
         }
-      });
+
+        // Desabilitar botão
+        if (loginBtn) {
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Entrando...';
+        }
+
+        // Simular delay de rede
+        setTimeout(() => {
+            const result = this.login(email, password, rememberMe);
+            
+            if (result.success) {
+                this.showMessage(message, result.message, 'success');
+                setTimeout(() => {
+                    window.location.href = 'quiz.html';
+                }, 1000);
+            } else {
+                this.showMessage(message, result.message, 'error');
+                if (loginBtn) {
+                    loginBtn.disabled = false;
+                    loginBtn.textContent = 'Entrar';
+                }
+            }
+        }, 1000);
     }
-  }
-  
-  // Instância global
-  const authSystem = new AuthSystem();
-  authSystem.setupGlobalEvents();
-  
-  // Atualizar UI quando tudo carregar
-  window.addEventListener('load', () => {
-    setTimeout(() => authSystem.updateUI(), 500);
-  });
-  
-  window.authSystem = authSystem;
+
+    // Manipular registro
+    handleRegister() {
+        const name = document.getElementById('register-name')?.value;
+        const email = document.getElementById('register-email')?.value;
+        const password = document.getElementById('register-password')?.value;
+        const confirmPassword = document.getElementById('register-confirm-password')?.value;
+        const acceptTerms = document.getElementById('accept-terms')?.checked;
+        const registerBtn = document.getElementById('register-btn');
+        const message = document.getElementById('register-message');
+
+        // Validações
+        if (!name || !email || !password || !confirmPassword) {
+            this.showMessage(message, 'Por favor, preencha todos os campos.', 'error');
+            return;
+        }
+
+        if (password.length < 6) {
+            this.showMessage(message, 'A senha deve ter pelo menos 6 caracteres.', 'error');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            this.showMessage(message, 'As senhas não coincidem.', 'error');
+            return;
+        }
+
+        if (!acceptTerms) {
+            this.showMessage(message, 'Você deve aceitar os termos de uso.', 'error');
+            return;
+        }
+
+        // Desabilitar botão
+        if (registerBtn) {
+            registerBtn.disabled = true;
+            registerBtn.textContent = 'Criando conta...';
+        }
+
+        // Simular delay de rede
+        setTimeout(() => {
+            const result = this.register(name, email, password);
+            
+            if (result.success) {
+                this.showMessage(message, result.message, 'success');
+                setTimeout(() => {
+                    window.location.href = 'quiz.html';
+                }, 1000);
+            } else {
+                this.showMessage(message, result.message, 'error');
+                if (registerBtn) {
+                    registerBtn.disabled = false;
+                    registerBtn.textContent = 'Criar Conta';
+                }
+            }
+        }, 1000);
+    }
+
+    // Mostrar mensagens
+    showMessage(element, text, type) {
+        if (!element) return;
+        
+        element.textContent = text;
+        element.className = 'form-message ' + type;
+        element.style.opacity = '1';
+
+        // Auto-esconder após 5 segundos
+        setTimeout(() => {
+            element.style.opacity = '0';
+        }, 5000);
+    }
+}
+
+// Função global para alternar visibilidade da senha
+function togglePassword(inputId) {
+    const input = document.getElementById(inputId);
+    if (input) {
+        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+        input.setAttribute('type', type);
+    }
+}
+
+// Inicializar sistema de autenticação
+function initializeAuthSystem() {
+    window.authSystem = new AuthSystem();
+    
+    // Configurar eventos de formulário
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            window.authSystem.handleLogin();
+        });
+    }
+
+    const registerForm = document.getElementById('register-form');
+    if (registerForm) {
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            window.authSystem.handleRegister();
+        });
+    }
+
+    // Configurar logout
+    const logoutBtn = document.getElementById('logout-btn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.authSystem.logout();
+        });
+    }
+
+    // Atualizar UI inicial
+    window.authSystem.updateUI();
+}
+
+// Executar quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    initializeAuthSystem();
+});

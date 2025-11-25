@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="css/index.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 <body>
   <video class="bg-video" autoplay loop muted playsinline>
@@ -16,39 +15,43 @@
 
   <section class="login-container">
     <div class="overlay"></div>
-
-    <!-- Navbar -->
+    
+    <!-- Componente Navbar -->
     <div id="navbar-container"></div>
 
-    <div class="login-card" data-aos="fade-up" data-aos-duration="1000">
+    <div class="login-card">
       <div class="login-header">
-        <h1>Fazer Login</h1>
-        <p>Entre na sua conta e continue sua preparação</p>
+        <h1>Login</h1>
+        <p>Entre na sua conta para continuar</p>
       </div>
 
       <form id="login-form">
-        <div id="form-message" class="form-message"></div>
-
+        <div class="form-message" id="login-message"></div>
+        
         <div class="form-group">
-          <label for="email">E-mail</label>
-          <input type="email" id="email" class="form-control" placeholder="seu@email.com" required>
+          <label for="login-email">E-mail</label>
+          <input type="email" id="login-email" class="form-control" required placeholder="seu@email.com">
         </div>
 
         <div class="form-group">
-          <label for="password">Senha</label>
-          <input type="password" id="password" class="form-control" placeholder="Digite sua senha" required>
-          <button type="button" class="password-toggle" id="toggle-password">Mostrar</button>
+          <label for="login-password">Senha</label>
+          <input type="password" id="login-password" class="form-control" required placeholder="Sua senha">
+          <button type="button" class="password-toggle" onclick="togglePassword('login-password')">
+            👁️
+          </button>
         </div>
 
         <div class="form-options">
           <label class="remember-me">
-            <input type="checkbox" id="remember">
-            Lembrar-me
+            <input type="checkbox" id="remember-me">
+            Lembrar de mim
           </label>
           <a href="#" class="forgot-password">Esqueci a senha</a>
         </div>
 
-        <button type="submit" class="btn-login">Entrar na Conta</button>
+        <button type="submit" class="btn-login" id="login-btn">
+          Entrar
+        </button>
 
         <div class="register-link">
           Não tem uma conta? <a href="register.html">Cadastre-se</a>
@@ -57,85 +60,7 @@
     </div>
   </section>
 
-  <div id="footer-container"></div>
-
-  <!-- Scripts (ordem importa!) -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="src/rotas.js" defer></script>
-  <script src="src/aos.js" defer></script>
-  <script src="src/components.js" defer></script>
-  <script src="src/auth.js"></script> <!-- Este é o novo auth.js que eu te passei -->
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      AOS.init();
-
-      // SE JÁ ESTIVER LOGADO → REDIRECIONA IMEDIATAMENTE
-      if (window.authSystem && window.authSystem.isLoggedIn()) {
-        window.location.replace('index.html');
-        return;
-      }
-
-      const form = document.getElementById('login-form');
-      const message = document.getElementById('form-message');
-      const emailInput = document.getElementById('email');
-      const passwordInput = document.getElementById('password');
-      const rememberCheckbox = document.getElementById('remember');
-
-      // Preenche e-mail salvo (Lembrar-me)
-      if (localStorage.getItem('rememberLogin') === 'true') {
-        emailInput.value = localStorage.getItem('userEmail') || '';
-        rememberCheckbox.checked = true;
-      }
-
-      // Toggle mostrar/ocultar senha
-      document.getElementById('toggle-password').addEventListener('click', function () {
-        const tipo = passwordInput.type === 'password' ? 'text' : 'password';
-        passwordInput.type = tipo;
-        this.textContent = tipo === 'password' ? 'Mostrar' : 'Ocultar';
-      });
-
-      // SUBMISSÃO DO FORMULÁRIO
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const email = emailInput.value.trim();
-        const password = passwordInput.value;
-        const remember = rememberCheckbox.checked;
-
-        // Validação básica
-        if (!email || !password) {
-          message.className = 'form-message error';
-          message.textContent = 'Preencha e-mail e senha';
-          return;
-        }
-
-        const btn = form.querySelector('.btn-login');
-        btn.disabled = true;
-        btn.textContent = 'Entrando...';
-
-        // Simula delay de rede
-        setTimeout(() => {
-          try {
-            // AQUI ESTÁ A MÁGICA: usa o authSystem real com senha
-            window.authSystem.login(email, password, remember);
-
-            message.className = 'form-message success';
-            message.textContent = 'Login realizado com sucesso!';
-
-            setTimeout(() => {
-              window.location.href = 'index.html';
-            }, 1000);
-
-          } catch (erro) {
-            message.className = 'form-message error';
-            message.textContent = erro.message || 'E-mail ou senha incorretos';
-            btn.disabled = false;
-            btn.textContent = 'Entrar na Conta';
-          }
-        }, 800);
-      });
-    });
-  </script>
+  <script src="src/auth.js"></script>
+  <script src="src/components.js"></script>
 </body>
 </html>
