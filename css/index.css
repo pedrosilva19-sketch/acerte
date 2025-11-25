@@ -1212,3 +1212,306 @@ footer {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+/* ===== RESPONSIVIDADE AVANÇADA ===== */
+@media (max-width: 1200px) {
+  .hero-content h1 {
+    font-size: 3.5rem;
+  }
+  
+  .navbar {
+    padding: 15px 30px;
+  }
+}
+
+@media (max-width: 992px) {
+  .hero-content h1 {
+    font-size: 3rem;
+  }
+  
+  .hero-content h2 {
+    font-size: 1.2rem;
+    letter-spacing: 4px;
+  }
+  
+  .navbar-menu {
+    gap: 25px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Hero Section */
+  .hero-content {
+    padding: 0 20px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  
+  .hero-content h2 {
+    font-size: 1rem;
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+  
+  .btn-action {
+    padding: 16px 40px;
+    font-size: 1.2rem;
+  }
+  
+  /* Navbar Mobile */
+  .navbar {
+    padding: 12px 20px;
+    flex-wrap: wrap;
+  }
+  
+  .navbar-brand {
+    gap: 10px;
+  }
+  
+  .logo-nav {
+    width: 45px;
+    height: 45px;
+  }
+  
+  #logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .navbar-menu {
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  
+  .navbar-menu li a {
+    font-size: 0.95rem;
+    padding: 5px 0;
+  }
+  
+  /* Dropdown Mobile */
+  #auth-item {
+    position: static;
+  }
+  
+  .dropdown-content {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 140px;
+  }
+  
+  /* About Page Mobile */
+  .about-container {
+    padding: 100px 15px 40px;
+  }
+  
+  .about-header h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about-header p {
+    font-size: 1.1rem;
+  }
+  
+  .mission-card,
+  .team-member,
+  .value-card,
+  .about-cta {
+    padding: 30px 20px;
+  }
+  
+  .mission-card h2 {
+    font-size: 1.8rem;
+  }
+  
+  .team-grid,
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  /* Login Mobile */
+  .login-card {
+    padding: 30px 25px;
+    margin: 20px;
+  }
+  
+  .login-header h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Extra Small Devices */
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-content h2 {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+  
+  .btn-action {
+    padding: 14px 35px;
+    font-size: 1.1rem;
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  /* Navbar Stack */
+  .navbar {
+    flex-direction: column;
+    padding: 10px 15px;
+  }
+  
+  .navbar-brand {
+    margin-bottom: 10px;
+  }
+  
+  .navbar-menu {
+    gap: 15px;
+    width: 100%;
+    justify-content: space-around;
+  }
+  
+  .navbar-menu li {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .navbar-menu li a {
+    font-size: 0.9rem;
+    display: block;
+    padding: 8px 5px;
+  }
+  
+  /* About Page Mobile */
+  .about-header h1 {
+    font-size: 2rem;
+  }
+  
+  .about-header p {
+    font-size: 1rem;
+  }
+  
+  .mission-card h2 {
+    font-size: 1.6rem;
+  }
+  
+  .mission-card p {
+    font-size: 1rem;
+  }
+  
+  .team-section h2,
+  .values-section h2 {
+    font-size: 2rem;
+  }
+  
+  .about-cta h2 {
+    font-size: 1.6rem;
+  }
+  
+  .about-cta p {
+    font-size: 1rem;
+  }
+  
+  /* Login Mobile */
+  .login-card {
+    padding: 25px 20px;
+  }
+  
+  .login-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .form-control {
+    padding: 14px 16px;
+  }
+  
+  .btn-login {
+    padding: 16px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 400px) {
+  /* Very Small Devices */
+  .hero-content h1 {
+    font-size: 1.8rem;
+  }
+  
+  .navbar-menu {
+    gap: 10px;
+  }
+  
+  .navbar-menu li a {
+    font-size: 0.85rem;
+  }
+  
+  #logo-text {
+    font-size: 1.1rem;
+  }
+  
+  .about-header h1 {
+    font-size: 1.8rem;
+  }
+}
+
+/* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
+@media (hover: none) and (pointer: coarse) {
+  .opcao:hover {
+    transform: none;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  
+  .btn-action:hover,
+  .btn-login:hover {
+    transform: none;
+  }
+  
+  .navbar-menu li a:hover::after {
+    width: 0;
+  }
+  
+  /* Increase touch targets */
+  .navbar-menu li a {
+    padding: 10px 5px;
+  }
+  
+  .opcao {
+    padding: 18px 20px;
+    min-height: 60px;
+  }
+  
+  .botao-responder {
+    padding: 16px 30px;
+    min-height: 50px;
+  }
+}
+
+/* ===== ORIENTATION SPECIFIC ===== */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    min-height: 120vh;
+  }
+  
+  .centralizar-tudo {
+    padding: 80px 15px 15px;
+  }
+  
+  .navbar {
+    padding: 8px 20px;
+  }
+}
+
+/* ===== HIGH DPI SCREENS ===== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .logo-nav {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
