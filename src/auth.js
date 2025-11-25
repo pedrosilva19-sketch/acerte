@@ -1,4 +1,4 @@
-// Sistema de Autenticação - CORRIGIDO
+// Sistema de Autenticação - COMPLETO E FUNCIONAL
 class AuthSystem {
     constructor() {
         this.users = JSON.parse(localStorage.getItem('acerte_users')) || [];
@@ -9,7 +9,8 @@ class AuthSystem {
 
     init() {
         this.setupEventListeners();
-        this.updateNavigation();
+        // Atualizar UI imediatamente
+        setTimeout(() => this.updateUI(), 100);
     }
 
     setupEventListeners() {
@@ -31,7 +32,7 @@ class AuthSystem {
             });
         }
 
-        // Logout - usando event delegation
+        // Logout
         document.addEventListener('click', (e) => {
             if (e.target.id === 'logout-btn') {
                 e.preventDefault();
@@ -53,10 +54,10 @@ class AuthSystem {
     }
 
     register(name, email, password) {
-        console.log('Tentando registrar:', email);
+        console.log('Registrando usuário:', email);
         
         // Verificar se email já existe
-        if (this.users.find(user => user.email === email)) {
+        if (this.users.find(user => user.email === email.toLowerCase())) {
             return { success: false, message: 'Este e-mail já está cadastrado!' };
         }
 
@@ -70,17 +71,18 @@ class AuthSystem {
 
         this.users.push(newUser);
         localStorage.setItem('acerte_users', JSON.stringify(this.users));
-        console.log('Usuário registrado:', newUser);
-
-        // Login automático
+        
+        console.log('Usuário registrado com sucesso:', newUser.name);
+        
+        // Fazer login automaticamente
         return this.login(email, password);
     }
 
-    login(email, password, rememberMe = false) {
-        console.log('Tentando login:', email);
+    login(email, password) {
+        console.log('Fazendo login:', email);
         
         const user = this.users.find(u => 
-            u.email === email.toLowerCase().trim() && 
+            u.email === email.toLowerCase() && 
             u.password === password
         );
         
@@ -91,12 +93,8 @@ class AuthSystem {
         this.currentUser = user;
         localStorage.setItem('acerte_current_user', JSON.stringify(user));
         
-        if (rememberMe) {
-            localStorage.setItem('acerte_remember_me', 'true');
-        }
-
         console.log('Login realizado com sucesso:', user.name);
-        this.updateNavigation();
+        this.updateUI();
         return { success: true, message: 'Login realizado com sucesso!' };
     }
 
@@ -104,7 +102,7 @@ class AuthSystem {
         console.log('Fazendo logout');
         this.currentUser = null;
         localStorage.removeItem('acerte_current_user');
-        this.updateNavigation();
+        this.updateUI();
         window.location.href = 'index.html';
     }
 
@@ -112,8 +110,8 @@ class AuthSystem {
         return this.currentUser !== null;
     }
 
-    updateNavigation() {
-        console.log('Atualizando navegação...');
+    updateUI() {
+        console.log('Atualizando UI...');
         
         const loginLink = document.getElementById('login-link');
         const userDropdown = document.getElementById('user-dropdown');
@@ -126,37 +124,24 @@ class AuthSystem {
             loggedIn: this.isLoggedIn()
         });
 
-        if (this.isLoggedIn()) {
-            // USUÁRIO LOGADO - mostrar dropdown
-            if (loginLink) {
-                loginLink.style.display = 'none';
-                console.log('Login link escondido');
-            }
-            if (userDropdown) {
-                userDropdown.style.display = 'flex';
-                console.log('User dropdown mostrado');
-            }
+        if (this.isLoggedIn() && this.currentUser) {
+            // USUÁRIO LOGADO - mostrar dropdown com nome
+            if (loginLink) loginLink.style.display = 'none';
+            if (userDropdown) userDropdown.style.display = 'flex';
             if (usernameDisplay) {
                 usernameDisplay.textContent = this.currentUser.name.split(' ')[0];
-                console.log('Nome do usuário atualizado:', this.currentUser.name.split(' ')[0]);
+                console.log('Nome definido:', this.currentUser.name.split(' ')[0]);
             }
         } else {
             // USUÁRIO NÃO LOGADO - mostrar link de login
-            if (loginLink) {
-                loginLink.style.display = 'block';
-                console.log('Login link mostrado');
-            }
-            if (userDropdown) {
-                userDropdown.style.display = 'none';
-                console.log('User dropdown escondido');
-            }
+            if (loginLink) loginLink.style.display = 'block';
+            if (userDropdown) userDropdown.style.display = 'none';
         }
     }
 
     handleLogin() {
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
-        const rememberMe = document.getElementById('remember-me')?.checked || false;
         const message = document.getElementById('login-message');
         const loginBtn = document.getElementById('login-btn');
 
@@ -166,14 +151,11 @@ class AuthSystem {
         }
 
         // Loading state
-        if (loginBtn) {
-            loginBtn.disabled = true;
-            loginBtn.textContent = 'Entrando...';
-        }
+        loginBtn.disabled = true;
+        loginBtn.textContent = 'Entrando...';
 
-        // Simular delay de rede
         setTimeout(() => {
-            const result = this.login(email, password, rememberMe);
+            const result = this.login(email, password);
             
             if (result.success) {
                 this.showMessage(message, result.message, 'success');
@@ -182,10 +164,8 @@ class AuthSystem {
                 }, 1000);
             } else {
                 this.showMessage(message, result.message, 'error');
-                if (loginBtn) {
-                    loginBtn.disabled = false;
-                    loginBtn.textContent = 'Entrar';
-                }
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Entrar';
             }
         }, 1000);
     }
@@ -221,12 +201,9 @@ class AuthSystem {
         }
 
         // Loading state
-        if (registerBtn) {
-            registerBtn.disabled = true;
-            registerBtn.textContent = 'Criando conta...';
-        }
+        registerBtn.disabled = true;
+        registerBtn.textContent = 'Criando conta...';
 
-        // Simular delay de rede
         setTimeout(() => {
             const result = this.register(name, email, password);
             
@@ -237,10 +214,8 @@ class AuthSystem {
                 }, 1000);
             } else {
                 this.showMessage(message, result.message, 'error');
-                if (registerBtn) {
-                    registerBtn.disabled = false;
-                    registerBtn.textContent = 'Criar Conta';
-                }
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Criar Conta';
             }
         }, 1000);
     }
@@ -266,8 +241,15 @@ function togglePassword(inputId) {
     }
 }
 
-// Inicializar imediatamente quando o DOM carregar
+// Inicializar sistema quando DOM carregar
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM carregado - inicializando AuthSystem');
     window.authSystem = new AuthSystem();
 });
+
+// Função global para forçar atualização da UI
+function updateAuthUI() {
+    if (window.authSystem) {
+        window.authSystem.updateUI();
+    }
+}
