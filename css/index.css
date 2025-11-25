@@ -732,3 +732,269 @@ footer {
 #user-dropdown {
   display: none;
 }
+
+/* ===== SOBRE NÓS ===== */
+.about-container {
+  position: relative;
+  min-height: 100vh;
+  padding: 120px 20px 60px;
+}
+
+.about-content {
+  position: relative;
+  z-index: 10;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.about-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.about-header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, var(--text-light), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.about-header p {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Missão */
+.mission-section {
+  margin-bottom: 80px;
+}
+
+.mission-card {
+  background: rgba(15, 36, 65, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(120, 169, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 50px;
+  text-align: center;
+  box-shadow: var(--shadow-heavy);
+}
+
+.mission-card h2 {
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  color: var(--primary);
+}
+
+.mission-card p {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--text-medium);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Equipe */
+.team-section {
+  margin-bottom: 80px;
+}
+
+.team-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: var(--text-light);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.team-member {
+  background: rgba(15, 36, 65, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(120, 169, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 40px 30px;
+  text-align: center;
+  transition: all var(--transition-slow);
+  box-shadow: var(--shadow);
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-heavy);
+}
+
+.member-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.team-member h3 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: var(--text-light);
+}
+
+.member-role {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+.member-bio {
+  color: var(--text-muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Valores */
+.values-section {
+  margin-bottom: 80px;
+}
+
+.values-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: var(--text-light);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.value-card {
+  background: rgba(15, 36, 65, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(120, 169, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 40px 30px;
+  text-align: center;
+  transition: all var(--transition);
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary);
+}
+
+.value-icon {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.value-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.value-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* CTA */
+.about-cta {
+  text-align: center;
+  background: rgba(15, 36, 65, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(120, 169, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 60px 40px;
+  box-shadow: var(--shadow-heavy);
+}
+
+.about-cta h2 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.about-cta p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 100px 15px 40px;
+  }
+
+  .about-header h1 {
+    font-size: 2.8rem;
+  }
+
+  .mission-card {
+    padding: 30px 20px;
+  }
+
+  .mission-card h2 {
+    font-size: 1.8rem;
+  }
+
+  .mission-card p {
+    font-size: 1.1rem;
+  }
+
+  .team-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .values-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .about-cta {
+    padding: 40px 20px;
+  }
+
+  .about-cta h2 {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .about-header p {
+    font-size: 1.1rem;
+  }
+
+  .team-member {
+    padding: 30px 20px;
+  }
+
+  .value-card {
+    padding: 30px 20px;
+  }
+}

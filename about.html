@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre Nós • Acerte!</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="imgs/logo.jpg" type="image/jpeg">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<body>
+  <video class="bg-video" autoplay loop muted playsinline>
+    <source src="videos/background.mp4" type="video/mp4">
+  </video>
+
+  <section class="about-container">
+    <div class="overlay"></div>
+    
+    <!-- Componente Navbar -->
+    <div id="navbar-container"></div>
+
+    <div class="about-content">
+      <!-- Header -->
+      <div class="about-header" data-aos="fade-up">
+        <h1>Sobre Nós</h1>
+        <p>Conheça a equipe por trás do projeto Acerte!</p>
+      </div>
+
+      <!-- Missão -->
+      <div class="mission-section" data-aos="fade-up" data-aos-delay="200">
+        <div class="mission-card">
+          <h2>Nossa Missão</h2>
+          <p>Transformar a preparação para concursos públicos através de uma plataforma inteligente e acessível, 
+             onde estudantes podem aprender de forma eficiente resolvendo questões todos os dias.</p>
+        </div>
+      </div>
+
+      <!-- Equipe -->
+      <div class="team-section" data-aos="fade-up" data-aos-delay="400">
+        <h2>Nossa Equipe</h2>
+        <div class="team-grid">
+          
+          <div class="team-member" data-aos="zoom-in" data-aos-delay="600">
+            <div class="member-avatar">
+              <span>PA</span>
+            </div>
+            <h3>Pedro Antônio Da Silva</h3>
+            <p class="member-role">Desenvolvedor Full Stack</p>
+            <p class="member-bio">Responsável pela arquitetura do sistema e desenvolvimento das funcionalidades principais.</p>
+          </div>
+
+          <div class="team-member" data-aos="zoom-in" data-aos-delay="800">
+            <div class="member-avatar">
+              <span>DN</span>
+            </div>
+            <h3>Diana Nicole Lacerda Da Silva</h3>
+            <p class="member-role">Designer UI/UX</p>
+            <p class="member-bio">Criadora da experiência do usuário e interface visual da plataforma.</p>
+          </div>
+
+          <div class="team-member" data-aos="zoom-in" data-aos-delay="1000">
+            <div class="member-avatar">
+              <span>EB</span>
+            </div>
+            <h3>Érika Braz de Sousa</h3>
+            <p class="member-role">Especialista em Conteúdo</p>
+            <p class="member-bio">Curadoria e organização do banco de questões e materiais de estudo.</p>
+          </div>
+
+          <div class="team-member" data-aos="zoom-in" data-aos-delay="1200">
+            <div class="member-avatar">
+              <span>MM</span>
+            </div>
+            <h3>Mirela Mariane Rodrigues Lima</h3>
+            <p class="member-role">Analista de Qualidade</p>
+            <p class="member-bio">Garantia da qualidade e experiência perfeita para os usuários.</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Valores -->
+      <div class="values-section" data-aos="fade-up" data-aos-delay="1400">
+        <h2>Nossos Valores</h2>
+        <div class="values-grid">
+          <div class="value-card" data-aos="flip-left" data-aos-delay="1600">
+            <div class="value-icon">🎯</div>
+            <h3>Foco no Aprendizado</h3>
+            <p>Priorizamos a eficiência no aprendizado através da prática constante.</p>
+          </div>
+          
+          <div class="value-card" data-aos="flip-left" data-aos-delay="1800">
+            <div class="value-icon">💡</div>
+            <h3>Inovação</h3>
+            <p>Buscamos sempre novas formas de melhorar a experiência de estudo.</p>
+          </div>
+          
+          <div class="value-card" data-aos="flip-left" data-aos-delay="2000">
+            <div class="value-icon">🤝</div>
+            <h3>Colaboração</h3>
+            <p>Acreditamos no poder do trabalho em equipe e do compartilhamento.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="about-cta" data-aos="fade-up" data-aos-delay="2200">
+        <h2>Junte-se a Nossa Jornada</h2>
+        <p>Comece sua preparação inteligente para concursos hoje mesmo</p>
+        <button class="btn-action" onclick="window.location.href='index.html'">
+          Começar Agora
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Componente Footer -->
+  <div id="footer-container"></div>
+
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="src/components.js"></script>
+  <script src="src/aos.js"></script>
+</body>
+</html>
