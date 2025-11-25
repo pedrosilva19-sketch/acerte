@@ -6,6 +6,17 @@
   <ul class="navbar-menu">
     <li><a href="index.html">Início</a></li>
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="login.html">Entre</a></li>
+    <li id="auth-item">
+      <!-- Link de login (visível quando não logado) -->
+      <a href="login.html" id="login-link" style="display: block;">Entrar</a>
+
+      <!-- Dropdown do usuário (visível quando logado) -->
+      <div id="user-dropdown" class="dropdown" style="display: none;">
+        <span id="username-display"></span>
+        <div class="dropdown-content">
+          <a href="#" id="logout-btn">Sair</a>
+        </div>
+      </div>
+    </li>
   </ul>
 </nav>

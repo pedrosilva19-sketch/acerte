@@ -11,6 +11,7 @@ function loadComponents() {
             if (navbarContainer) {
                 navbarContainer.innerHTML = data;
                 setupNavbarEvents(); // Configurar eventos após carregar
+                initializeAuthSystem(); // Inicializar sistema de auth após navbar carregada
             }
         })
         .catch(error => console.error('Erro ao carregar navbar:', error));
@@ -43,6 +44,20 @@ function setupNavbarEvents() {
 
     if (logoText) {
         logoText.addEventListener("click", irInicio);
+    }
+}
+
+// Inicializar sistema de autenticação após navbar carregar
+function initializeAuthSystem() {
+    // Verificar se o authSystem existe
+    if (typeof authSystem !== 'undefined') {
+        // Forçar atualização da UI
+        setTimeout(() => {
+            authSystem.updateUI();
+            console.log('Sistema de auth inicializado, usuário logado:', authSystem.isLoggedIn());
+        }, 100);
+    } else {
+        console.error('Sistema de autenticação não carregado');
     }
 }
 
