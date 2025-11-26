@@ -133,6 +133,7 @@ html {
   display: flex;
   gap: 40px;
   list-style: none;
+  align-items: center;
 }
 
 .navbar-menu li a {
@@ -163,6 +164,121 @@ html {
 
 .navbar-menu li a:hover::after {
   width: 100%;
+}
+
+/* ===== DROPDOWN CORRIGIDO - COM MELHOR INTERAÇÃO ===== */
+#auth-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown {
+    display: none;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    position: relative;
+    padding: 8px 16px;
+}
+
+#username-display {
+    color: var(--text-light);
+    font-weight: 500;
+    font-size: 1.05rem;
+    transition: color var(--transition);
+}
+
+.dropdown:hover #username-display {
+    color: var(--primary);
+}
+
+.dropdown::after {
+    content: '▼';
+    font-size: 0.7rem;
+    color: var(--text-muted);
+    transition: transform var(--transition);
+    margin-left: 5px;
+}
+
+/* CORREÇÃO PRINCIPAL: Dropdown content com transição suave */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: var(--bg-medium);
+    min-width: 160px;
+    box-shadow: var(--shadow-heavy);
+    border-radius: var(--radius);
+    border: 1px solid rgba(120, 169, 255, 0.3);
+    backdrop-filter: blur(12px);
+    z-index: 1001;
+    margin-top: 15px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.dropdown-content a {
+    color: var(--text-light);
+    padding: 14px 20px;
+    text-decoration: none;
+    display: block;
+    transition: all var(--transition);
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(120, 169, 255, 0.1);
+    font-family: 'Poppins', sans-serif;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:hover {
+    background: rgba(120, 169, 255, 0.15);
+    color: var(--primary);
+    padding-left: 25px;
+}
+
+/* CORREÇÃO: Hover no dropdown mantém o conteúdo visível */
+.dropdown:hover .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* CORREÇÃO: Adicionar uma área "ponte" entre o dropdown e o conteúdo */
+.dropdown-content::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    background: transparent;
+}
+
+/* Estados visíveis */
+#user-dropdown.show {
+    display: flex !important;
+}
+
+#login-link.hide {
+    display: none !important;
+}
+
+/* Garantir que o link de login seja visível inicialmente */
+#login-link {
+    display: block;
+    padding: 8px 16px;
+}
+
+#user-dropdown {
+    display: none;
 }
 
 /* ===== HERO SECTION ===== */
@@ -275,135 +391,6 @@ footer {
   z-index: -999;
   filter: brightness(70%) contrast(110%);
   pointer-events: none;
-}
-
-/* ===== RESPONSIVIDADE ===== */
-@media (max-width: 992px) {
-  .hero-content h1 {
-    font-size: 3.5rem;
-  }
-
-  .navbar {
-    padding: 18px 40px;
-  }
-
-  .navbar-menu {
-    gap: var(--spacing-xl);
-  }
-}
-
-@media (max-width: 768px) {
-  .hero-content h1 {
-    font-size: 3rem;
-  }
-
-  .hero-content h2 {
-    font-size: 1.2rem;
-  }
-
-  .navbar {
-    padding: var(--spacing-md) var(--spacing-lg);
-    flex-direction: column;
-    gap: var(--spacing-md);
-  }
-
-  .navbar-menu {
-    gap: var(--spacing-lg);
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-content h1 {
-    font-size: 2.5rem;
-  }
-
-  .btn-action {
-    padding: 16px 40px;
-    font-size: 1.2rem;
-  }
-}
-
-/* ===== DROPDOWN STYLES ===== */
-#auth-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.dropdown {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  position: relative;
-  padding: 8px 0;
-}
-
-#username-display {
-  color: var(--text-light);
-  font-weight: 500;
-  font-size: 1.05rem;
-  transition: color var(--transition);
-}
-
-.dropdown:hover #username-display {
-  color: var(--primary);
-}
-
-.dropdown::after {
-  content: '▼';
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  transition: transform var(--transition);
-}
-
-.dropdown:hover::after {
-  transform: rotate(180deg);
-  color: var(--primary);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: var(--bg-medium);
-  min-width: 120px;
-  box-shadow: var(--shadow-heavy);
-  border-radius: var(--radius);
-  border: 1px solid rgba(120, 169, 255, 0.2);
-  backdrop-filter: blur(12px);
-  z-index: 1001;
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-.dropdown-content a {
-  color: var(--text-light);
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: all var(--transition);
-  font-size: 0.95rem;
-  border-bottom: 1px solid rgba(120, 169, 255, 0.1);
-}
-
-.dropdown-content a:last-child {
-  border-bottom: none;
-}
-
-.dropdown-content a:hover {
-  background: rgba(120, 169, 255, 0.1);
-  color: var(--primary);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Garantir que o link de login seja visível inicialmente */
-#login-link {
-  display: block;
 }
 
 /* ===== PÁGINA DE LOGIN ===== */
@@ -618,121 +605,6 @@ footer {
   50% { transform: translateY(-10px); }
 }
 
-/* Responsividade para login */
-@media (max-width: 576px) {
-  .login-card {
-    padding: 40px 30px;
-    margin: 20px;
-  }
-
-  .login-header h1 {
-    font-size: 2.2rem;
-  }
-
-  .btn-login {
-    padding: 16px;
-    font-size: 1.1rem;
-  }
-}
-
-/* Força o dropdown a aparecer quando logado (importante!) */
-#user-dropdown.show {
-  display: flex !important;
-}
-
-#login-link.hide {
-  display: none !important;
-}
-
-
-
-/* Garantir que o dropdown funcione corretamente */
-#auth-item {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.dropdown {
-  display: none;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  position: relative;
-  padding: 8px 0;
-}
-
-#username-display {
-  color: var(--text-light);
-  font-weight: 500;
-  font-size: 1.05rem;
-  transition: color var(--transition);
-}
-
-.dropdown:hover #username-display {
-  color: var(--primary);
-}
-
-.dropdown::after {
-  content: '▼';
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  transition: transform var(--transition);
-}
-
-.dropdown:hover::after {
-  transform: rotate(180deg);
-  color: var(--primary);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background: var(--bg-medium);
-  min-width: 120px;
-  box-shadow: var(--shadow-heavy);
-  border-radius: var(--radius);
-  border: 1px solid rgba(120, 169, 255, 0.2);
-  backdrop-filter: blur(12px);
-  z-index: 1001;
-  margin-top: 10px;
-  overflow: hidden;
-}
-
-.dropdown-content a {
-  color: var(--text-light);
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: all var(--transition);
-  font-size: 0.95rem;
-  border-bottom: 1px solid rgba(120, 169, 255, 0.1);
-}
-
-.dropdown-content a:last-child {
-  border-bottom: none;
-}
-
-.dropdown-content a:hover {
-  background: rgba(120, 169, 255, 0.1);
-  color: var(--primary);
-}
-
-.dropdown:hover .dropdown-content {
-  display: block;
-}
-
-/* Garantir que o link de login seja visível inicialmente */
-#login-link {
-  display: block;
-}
-
-#user-dropdown {
-  display: none;
-}
-
 /* ===== SOBRE NÓS ===== */
 .about-container {
   position: relative;
@@ -941,279 +813,6 @@ footer {
 }
 
 /* ===== RESPONSIVIDADE ===== */
-@media (max-width: 768px) {
-  .about-container {
-    padding: 100px 15px 40px;
-  }
-
-  .about-header h1 {
-    font-size: 2.8rem;
-  }
-
-  .mission-card {
-    padding: 30px 20px;
-  }
-
-  .mission-card h2 {
-    font-size: 1.8rem;
-  }
-
-  .mission-card p {
-    font-size: 1.1rem;
-  }
-
-  .team-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .values-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  .about-cta {
-    padding: 40px 20px;
-  }
-
-  .about-cta h2 {
-    font-size: 1.8rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .about-header h1 {
-    font-size: 2.2rem;
-  }
-
-  .about-header p {
-    font-size: 1.1rem;
-  }
-
-  .team-member {
-    padding: 30px 20px;
-  }
-
-  .value-card {
-    padding: 30px 20px;
-  }
-}
-
-/* ESTILOS DO DROPDOWN - CORRIGIDOS */
-#auth-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.dropdown {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    position: relative;
-    padding: 8px 16px;
-}
-
-.dropdown:hover {
-    color: var(--primary);
-}
-
-#username-display {
-    color: var(--text-light);
-    font-weight: 500;
-    font-size: 1.05rem;
-    transition: color var(--transition);
-}
-
-.dropdown:hover #username-display {
-    color: var(--primary);
-}
-
-.dropdown::after {
-    content: '▼';
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    transition: transform var(--transition);
-    margin-left: 5px;
-}
-
-.dropdown:hover::after {
-    transform: rotate(180deg);
-    color: var(--primary);
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--bg-medium);
-    min-width: 140px;
-    box-shadow: var(--shadow-heavy);
-    border-radius: var(--radius);
-    border: 1px solid rgba(120, 169, 255, 0.2);
-    backdrop-filter: blur(12px);
-    z-index: 1001;
-    margin-top: 10px;
-    overflow: hidden;
-}
-
-.dropdown-content a {
-    color: var(--text-light);
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    transition: all var(--transition);
-    font-size: 0.95rem;
-    border-bottom: 1px solid rgba(120, 169, 255, 0.1);
-}
-
-.dropdown-content a:last-child {
-    border-bottom: none;
-}
-
-.dropdown-content a:hover {
-    background: rgba(120, 169, 255, 0.1);
-    color: var(--primary);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* Garantir que o link de login seja visível inicialmente */
-#login-link {
-    display: block;
-    padding: 8px 16px;
-}
-
-#user-dropdown {
-    display: none;
-}
-
-/* ===== NAVBAR CORRIGIDA ===== */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 15px 60px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-    background: rgba(15, 36, 65, 0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(120, 169, 255, 0.15);
-}
-
-.navbar-menu {
-    display: flex;
-    gap: 40px;
-    list-style: none;
-    align-items: center;
-    margin: 0;
-    padding: 0;
-}
-
-.navbar-menu li a {
-    color: #e0e0e0;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1.05rem;
-    transition: color 0.3s ease;
-    font-family: 'Poppins', sans-serif;
-}
-
-.navbar-menu li a:hover {
-    color: var(--primary);
-}
-
-/* ===== DROPDOWN CORRIGIDO ===== */
-#auth-item {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-#login-link {
-    display: block;
-    padding: 8px 0;
-}
-
-.dropdown {
-    display: none;
-    align-items: center;
-    gap: 8px;
-    cursor: pointer;
-    position: relative;
-    padding: 8px 0;
-}
-
-.dropdown:hover {
-    color: var(--primary);
-}
-
-#username-display {
-    color: var(--text-light);
-    font-weight: 500;
-    font-size: 1.05rem;
-}
-
-.dropdown::after {
-    content: '▼';
-    font-size: 0.7rem;
-    color: var(--text-muted);
-    margin-left: 5px;
-    transition: transform 0.3s ease;
-}
-
-.dropdown:hover::after {
-    transform: rotate(180deg);
-    color: var(--primary);
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: var(--bg-medium);
-    min-width: 150px;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
-    border-radius: 12px;
-    border: 1px solid rgba(120, 169, 255, 0.2);
-    backdrop-filter: blur(12px);
-    z-index: 1001;
-    margin-top: 10px;
-    overflow: hidden;
-}
-
-.dropdown-content a {
-    color: var(--text-light);
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-    border-bottom: 1px solid rgba(120, 169, 255, 0.1);
-}
-
-.dropdown-content a:last-child {
-    border-bottom: none;
-}
-
-.dropdown-content a:hover {
-    background: rgba(120, 169, 255, 0.1);
-    color: var(--primary);
-}
-
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
-/* ===== RESPONSIVIDADE AVANÇADA ===== */
 @media (max-width: 1200px) {
   .hero-content h1 {
     font-size: 3.5rem;
@@ -1236,6 +835,22 @@ footer {
   
   .navbar-menu {
     gap: 25px;
+  }
+  
+  .about-header h1 {
+    font-size: 2.8rem;
+  }
+  
+  .mission-card {
+    padding: 30px 20px;
+  }
+  
+  .mission-card h2 {
+    font-size: 1.8rem;
+  }
+  
+  .mission-card p {
+    font-size: 1.1rem;
   }
 }
 
@@ -1298,10 +913,12 @@ footer {
   }
   
   .dropdown-content {
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-    min-width: 140px;
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    left: auto;
+    min-width: 200px;
+    z-index: 1002;
   }
   
   /* About Page Mobile */
@@ -1460,6 +1077,11 @@ footer {
   .about-header h1 {
     font-size: 1.8rem;
   }
+  
+  .dropdown-content {
+    right: 10px;
+    min-width: 180px;
+  }
 }
 
 /* ===== TOUCH DEVICE OPTIMIZATIONS ===== */
@@ -1483,14 +1105,20 @@ footer {
     padding: 10px 5px;
   }
   
-  .opcao {
-    padding: 18px 20px;
-    min-height: 60px;
+  .dropdown-content a {
+    padding: 16px 20px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
   }
   
-  .botao-responder {
-    padding: 16px 30px;
-    min-height: 50px;
+  /* Melhor comportamento para dropdown em touch */
+  .dropdown:active .dropdown-content,
+  .dropdown.active .dropdown-content {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
   }
 }
 
@@ -1500,12 +1128,12 @@ footer {
     min-height: 120vh;
   }
   
-  .centralizar-tudo {
-    padding: 80px 15px 15px;
-  }
-  
   .navbar {
     padding: 8px 20px;
+  }
+  
+  .login-container {
+    padding: 80px 20px 20px;
   }
 }
 
@@ -1513,5 +1141,203 @@ footer {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .logo-nav {
     image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* ===== ACESSIBILIDADE ===== */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Estados de foco para acessibilidade */
+.dropdown:focus .dropdown-content,
+.dropdown-content:focus-within {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.navbar-menu li a:focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 4px;
+}
+
+/* Melhorias para o dropdown em todos os dispositivos */
+.dropdown-content a:focus {
+    background: rgba(120, 169, 255, 0.2);
+    color: var(--primary);
+    outline: none;
+}
+
+/* ===== ESTILOS PARA AS FOTOS DA EQUIPE ===== */
+.member-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border: 3px solid var(--primary);
+  box-shadow: 0 0 20px rgba(120, 169, 255, 0.4);
+  position: relative;
+}
+
+.member-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all var(--transition-slow);
+}
+
+.team-member:hover .member-photo {
+  transform: scale(1.1);
+}
+
+/* Fallback para caso as imagens não carreguem */
+.member-avatar span {
+  display: none;
+}
+
+.member-avatar:not(:has(img)) span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: var(--text-light);
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Responsividade para as fotos */
+@media (max-width: 768px) {
+  .member-avatar {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .member-avatar {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* ===== ESTILOS PARA OS E-MAILS DA EQUIPE ===== */
+.member-email {
+  color: var(--primary);
+  font-size: 0.9rem;
+  margin-top: 12px;
+  font-weight: 500;
+  background: rgba(120, 169, 255, 0.1);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  border: 1px solid rgba(120, 169, 255, 0.2);
+  transition: all var(--transition);
+}
+
+.team-member:hover .member-email {
+  background: rgba(120, 169, 255, 0.15);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* ===== SEÇÃO DE CONTATO ===== */
+.contact-section {
+  margin-bottom: 80px;
+}
+
+.contact-card {
+  background: rgba(15, 36, 65, 0.85);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(120, 169, 255, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 50px;
+  text-align: center;
+  box-shadow: var(--shadow-heavy);
+}
+
+.contact-card h2 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: var(--primary);
+}
+
+.contact-card > p {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.contact-info p {
+  color: var(--text-medium);
+  font-size: 1.1rem;
+  padding: 12px 20px;
+  background: rgba(10, 20, 40, 0.6);
+  border-radius: var(--radius);
+  border: 1px solid rgba(120, 169, 255, 0.1);
+  transition: all var(--transition);
+}
+
+.contact-info p:hover {
+  background: rgba(120, 169, 255, 0.1);
+  border-color: var(--primary);
+  transform: translateX(10px);
+}
+
+.contact-info strong {
+  color: var(--primary-light);
+  font-weight: 600;
+}
+
+/* ===== RESPONSIVIDADE PARA CONTATO ===== */
+@media (max-width: 768px) {
+  .contact-card {
+    padding: 30px 20px;
+  }
+  
+  .contact-card h2 {
+    font-size: 1.8rem;
+  }
+  
+  .contact-card > p {
+    font-size: 1.1rem;
+  }
+  
+  .contact-info p {
+    font-size: 1rem;
+    padding: 10px 15px;
+  }
+  
+  .member-email {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-info p {
+    font-size: 0.95rem;
+  }
+  
+  .member-email {
+    font-size: 0.8rem;
   }
 }
