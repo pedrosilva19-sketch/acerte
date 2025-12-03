@@ -3,32 +3,18 @@ import Head from "next/head";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/router";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // Importe os ícones
 
 export default function LoginPage() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
     const [messageType, setMessageType] = useState("");
+    const [showPassword, setShowPassword] = useState(false); // Estado para mostrar/esconder senha
     const { login } = useAuth();
     const router = useRouter();
 
-    const togglePassword = (id) => {
-        const passwordField = document.getElementById(id);
-        const toggleBtn = passwordField.parentElement.querySelector(".password-toggle");
-        const eyeClosed = toggleBtn.querySelector(".eye-closed");
-        const eyeOpen = toggleBtn.querySelector(".eye-open");
-
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            toggleBtn.classList.add("active");
-            eyeClosed.style.display = "none";
-            eyeOpen.style.display = "block";
-        } else {
-            passwordField.type = "password";
-            toggleBtn.classList.remove("active");
-            eyeClosed.style.display = "block";
-            eyeOpen.style.display = "none";
-        }
-        passwordField.focus();
+    const togglePassword = () => {
+        setShowPassword(!showPassword);
     };
 
     const handleLogin = async (e) => {
@@ -127,7 +113,7 @@ export default function LoginPage() {
                                 <label htmlFor="login-password">Senha</label>
                                 <div className="password-input-container">
                                     <input
-                                        type="password"
+                                        type={showPassword ? "text" : "password"} // Alterna o tipo
                                         id="login-password"
                                         className="form-control"
                                         required
@@ -137,17 +123,15 @@ export default function LoginPage() {
                                     <button
                                         type="button"
                                         className="password-toggle"
-                                        onClick={() => togglePassword("login-password")}
+                                        onClick={togglePassword}
                                         disabled={loading}
+                                        aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                                     >
-                                        <svg className="toggle-icon" viewBox="0 0 24 24">
-                                            <path className="eye-closed" d="M12 4.5C7 4.5..." />
-                                            <path
-                                                className="eye-open"
-                                                style={{ display: "none" }}
-                                                d="M12 7c2.76..."
-                                            />
-                                        </svg>
+                                        {showPassword ? (
+                                            <FiEyeOff size={20} className="toggle-icon" />
+                                        ) : (
+                                            <FiEye size={20} className="toggle-icon" />
+                                        )}
                                     </button>
                                 </div>
                             </div>

@@ -1,36 +1,24 @@
-// pages/register.js
+// pages/register.js - ATUALIZADO
 import Head from "next/head";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
+import { FiEye, FiEyeOff } from "react-icons/fi"; // Importe os ícones
 
 export default function Register() {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-    const [messageType, setMessageType] = useState(""); // "success" ou "error"
+    const [messageType, setMessageType] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const router = useRouter();
 
-    useEffect(() => {
-        // Função para alternar visibilidade da senha
-        window.togglePassword = (id) => {
-            const passwordField = document.getElementById(id);
-            const toggleBtn = passwordField.parentElement.querySelector(".password-toggle");
-            const eyeClosed = toggleBtn.querySelector(".eye-closed");
-            const eyeOpen = toggleBtn.querySelector(".eye-open");
+    const togglePassword = () => {
+        setShowPassword(!showPassword);
+    };
 
-            if (passwordField.type === "password") {
-                passwordField.type = "text";
-                toggleBtn.classList.add("active");
-                eyeClosed.style.display = "none";
-                eyeOpen.style.display = "block";
-            } else {
-                passwordField.type = "password";
-                toggleBtn.classList.remove("active");
-                eyeClosed.style.display = "block";
-                eyeOpen.style.display = "none";
-            }
-            passwordField.focus();
-        };
-    }, []);
+    const toggleConfirmPassword = () => {
+        setShowConfirmPassword(!showConfirmPassword);
+    };
 
     const handleRegister = async (e) => {
         e.preventDefault();
@@ -173,7 +161,7 @@ export default function Register() {
                                 <label htmlFor="register-password">Senha</label>
                                 <div className="password-input-container">
                                     <input 
-                                        type="password" 
+                                        type={showPassword ? "text" : "password"}
                                         id="register-password" 
                                         className="form-control" 
                                         required 
@@ -184,17 +172,15 @@ export default function Register() {
                                     <button 
                                         type="button" 
                                         className="password-toggle" 
-                                        onClick={() => window.togglePassword("register-password")}
+                                        onClick={togglePassword}
                                         disabled={loading}
+                                        aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                                     >
-                                        <svg className="toggle-icon" viewBox="0 0 24 24">
-                                            <path className="eye-closed" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                            <path 
-                                                className="eye-open" 
-                                                style={{ display: "none" }} 
-                                                d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"
-                                            />
-                                        </svg>
+                                        {showPassword ? (
+                                            <FiEyeOff size={20} className="toggle-icon" />
+                                        ) : (
+                                            <FiEye size={20} className="toggle-icon" />
+                                        )}
                                     </button>
                                 </div>
                             </div>
@@ -203,7 +189,7 @@ export default function Register() {
                                 <label htmlFor="register-confirm-password">Confirmar Senha</label>
                                 <div className="password-input-container">
                                     <input 
-                                        type="password" 
+                                        type={showConfirmPassword ? "text" : "password"}
                                         id="register-confirm-password" 
                                         className="form-control" 
                                         required 
@@ -213,17 +199,15 @@ export default function Register() {
                                     <button 
                                         type="button" 
                                         className="password-toggle" 
-                                        onClick={() => window.togglePassword("register-confirm-password")}
+                                        onClick={toggleConfirmPassword}
                                         disabled={loading}
+                                        aria-label={showConfirmPassword ? "Ocultar senha" : "Mostrar senha"}
                                     >
-                                        <svg className="toggle-icon" viewBox="0 0 24 24">
-                                            <path className="eye-closed" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
-                                            <path 
-                                                className="eye-open" 
-                                                style={{ display: "none" }} 
-                                                d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"
-                                            />
-                                        </svg>
+                                        {showConfirmPassword ? (
+                                            <FiEyeOff size={20} className="toggle-icon" />
+                                        ) : (
+                                            <FiEye size={20} className="toggle-icon" />
+                                        )}
                                     </button>
                                 </div>
                             </div>

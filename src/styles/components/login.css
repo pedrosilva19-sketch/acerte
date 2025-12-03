@@ -179,3 +179,42 @@
   .form-control { font-size: 0.95rem; }
   .btn-login { font-size: 1rem; }
 }
+
+
+/* Ajuste específico para o botão do olho */
+.password-toggle {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+}
+
+.password-toggle:hover {
+    color: var(--primary-hover);
+    background: rgba(90, 154, 255, 0.1);
+}
+
+.password-toggle:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.password-toggle .toggle-icon {
+    transition: var(--transition);
+}
+
+/* Se quiser uma animação suave na troca de ícones */
+.password-toggle svg {
+    transition: all 0.3s ease;
+}
