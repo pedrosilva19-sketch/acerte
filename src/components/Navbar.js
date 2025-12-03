@@ -2,10 +2,6 @@
 import Link from "next/link";
 
 export default function Navbar() {
-    function Home() {
-        window.location.href = "/";
-    }
-
     return (
         <nav className="navbar">
             <div className="navbar-brand">
@@ -14,9 +10,9 @@ export default function Navbar() {
                     src="/imgs/logo.jpg"
                     alt="Acerte!"
                     className="logo-nav"
-                    onClick={Home}
+                    onClick={() => window.location.href = "/"}
                 />
-                <span id="logo-text">Acerte!</span>
+                <span id="logo-text" onClick={() => window.location.href = "/"}>Acerte!</span>
             </div>
 
             <ul className="navbar-menu">
@@ -42,4 +38,6 @@ export default function Navbar() {
                     </div>
                 </li>
             </ul>
-        </nav>
+        </nav>
+    );
+}
