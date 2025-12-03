@@ -2,7 +2,7 @@
 .about-container {
   position: relative;
   min-height: 100vh;
-  padding: var(--spacing-xxxl) var(--spacing-md);
+  padding: calc(var(--spacing-xxxl) + 80px) var(--spacing-md) var(--spacing-xxxl);
   animation: fadeIn var(--transition-slow);
 }
 
@@ -172,6 +172,7 @@
 
 /* Valores */
 .value-card {
+  margin-bottom: var(--spacing-xxxl);
   background: var(--bg-light);
   border: 1px solid rgba(90,154,255,0.2);
   border-radius: var(--radius-lg);

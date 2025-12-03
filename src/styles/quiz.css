@@ -1,10 +1,12 @@
 /* ===== QUIZ LAYOUT ===== */
+/* ===== QUIZ LAYOUT ===== */
 .centralizar-tudo {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-xxxl) var(--spacing-md);
+  /* Aumentei o padding-top para afastar da navbar */
+  padding: calc(var(--spacing-xxxl) + 80px) var(--spacing-md) var(--spacing-xxxl);
   position: relative;
   z-index: 2;
 }

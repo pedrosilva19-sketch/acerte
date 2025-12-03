@@ -1,11 +1,12 @@
 /* ===== LOGIN/REGISTER CONTAINER ===== */
+/* ===== LOGIN/REGISTER CONTAINER ===== */
 .login-container {
   position: relative;
   min-height: calc(100vh - var(--spacing-xxxl));
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-xxxl) var(--spacing-md);
+  padding: calc(var(--spacing-xxxl) + 80px) var(--spacing-md) var(--spacing-xxxl); /* +80px no topo */
 }
 
 /* Card principal */
