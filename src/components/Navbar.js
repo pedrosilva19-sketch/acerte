@@ -62,7 +62,7 @@ export default function Navbar() {
                     {user ? (
                         <div className="user-area">
                             <span className="username-display">
-                                Olá, {user.name}
+                                {user.name}
                             </span>
                             <button
                                 onClick={logout}
