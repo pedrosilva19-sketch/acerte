@@ -1,41 +1,91 @@
-// components/Navbar.tsx
-import Link from "next/link";
+// components/Navbar.js - VERSÃO CORRIGIDA
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
 
 export default function Navbar() {
+    const { user, logout, loading } = useAuth();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    // Evitar hidratação do React
+    if (!mounted || loading) {
+        return (
+            <nav className="navbar">
+                <div className="navbar-brand">
+                    <img
+                        src="/imgs/logo.jpg"
+                        alt="Acerte!"
+                        className="logo-nav"
+                    />
+                    <span>Acerte!</span>
+                </div>
+                <ul className="navbar-menu">
+                    <li><Link href="/">Início</Link></li>
+                    <li><Link href="/about">Sobre Nós</Link></li>
+                    <li><Link href="/login">Login</Link></li>
+                </ul>
+            </nav>
+        );
+    }
+
+    const handleLogoClick = () => {
+        window.location.href = '/';
+    };
+
     return (
         <nav className="navbar">
             <div className="navbar-brand">
                 <img
-                    id="logo-nav"
                     src="/imgs/logo.jpg"
                     alt="Acerte!"
                     className="logo-nav"
-                    onClick={() => window.location.href = "/"}
+                    onClick={handleLogoClick}
+                    style={{ cursor: 'pointer' }}
                 />
-                <span id="logo-text" onClick={() => window.location.href = "/"}>Acerte!</span>
+                <span 
+                    onClick={handleLogoClick}
+                    style={{ cursor: 'pointer' }}
+                >
+                    Acerte!
+                </span>
             </div>
 
             <ul className="navbar-menu">
-                <li>
-                    <Link href="/">Início</Link>
-                </li>
-                <li>
-                    <Link href="/about">Sobre Nós</Link>
-                </li>
-
+                <li><Link href="/">Início</Link></li>
+                <li><Link href="/about">Sobre Nós</Link></li>
+                
                 <li id="auth-item">
-                    {/* Link de Login (visível quando NÃO logado) */}
-                    <Link href="/login" id="login-link">
-                        Login
-                    </Link>
-
-                    {/* Área do usuário logado (visível quando logado) */}
-                    <div className="user-area" id="user-area">
-                        <span id="username-display">Usuário</span>
-                        <button id="logout-btn" className="logout-btn" title="Sair da conta">
-                            <span>Sair</span>
-                        </button>
-                    </div>
+                    {user ? (
+                        <div className="user-area">
+                            <span className="username-display">
+                                Olá, {user.name}
+                            </span>
+                            <button
+                                onClick={logout}
+                                className="logout-btn"
+                                onMouseOver={(e) => {
+                                    e.target.style.background = 'var(--primary, #0070f3)';
+                                    e.target.style.color = 'white';
+                                }}
+                                onMouseOut={(e) => {
+                                    e.target.style.background = 'transparent';
+                                    e.target.style.color = 'var(--primary, #0070f3)';
+                                }}
+                            >
+                                Sair
+                            </button>
+                        </div>
+                    ) : (
+                        <Link 
+                            href="/login"
+                        >
+                            Login
+                        </Link>
+                    )}
                 </li>
             </ul>
         </nav>

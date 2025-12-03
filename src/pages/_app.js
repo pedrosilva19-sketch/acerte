@@ -1,13 +1,19 @@
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-import "@/styles/index.css";
+// pages/_app.js
+import { AuthProvider } from '@/context/AuthContext';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import '../styles/index.css';
 
-export default function App({ Component, pageProps }) {
+function MyApp({ Component, pageProps }) {
   return (
-    <>
-      <Navbar />
-      <Component {...pageProps} />
-      <Footer />
-    </>
+    <AuthProvider>
+      <div className="app-container">
+        <Navbar />
+        <Component {...pageProps} />
+        <Footer />
+      </div>
+    </AuthProvider>
   );
 }
+
+export default MyApp;

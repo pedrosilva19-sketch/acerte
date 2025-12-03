@@ -1,32 +1,63 @@
-import connectMongo from "../../../lib/mongodb";
-import User from "../../../models/User";
-import bcrypt from "bcryptjs";
+// api/auth/register.js - CORRETO
+import connectDB from "@/lib/mongodb";
+import User from "@/models/User";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
-    if (req.method !== "POST")
-        return res.status(405).json({ message: "Método não permitido" });
+    if (req.method !== "POST") return res.status(405).end();
 
-    await connectMongo();
+    await connectDB();
 
     const { name, email, password } = req.body;
 
-    if (!name || !email || !password)
-        return res.status(400).json({ message: "Preencha todos os campos" });
+    // Validações básicas
+    if (!name || !email || !password) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "Todos os campos são obrigatórios." 
+        });
+    }
 
-    const existing = await User.findOne({ email });
-    if (existing)
-        return res.status(400).json({ message: "E-mail já cadastrado" });
+    const userExists = await User.findOne({ email });
+    if (userExists) {
+        return res.status(400).json({ 
+            success: false, 
+            message: "E-mail já registrado." 
+        });
+    }
 
     const hashed = await bcrypt.hash(password, 10);
 
-    const newUser = await User.create({
-        name,
-        email,
-        password: hashed
-    });
+    try {
+        const newUser = await User.create({
+            name,
+            email,
+            password: hashed,
+        });
 
-    return res.status(201).json({
-        message: "Conta criada com sucesso!",
-        user: { id: newUser._id, name: newUser.name, email: newUser.email }
-    });
+        // Criar token JWT
+        const token = jwt.sign(
+            { id: newUser._id, name: newUser.name, email: newUser.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "7d" }
+        );
+
+        return res.status(201).json({ 
+            success: true,
+            message: "Conta criada com sucesso!",
+            token: token,
+            user: {
+                _id: newUser._id,
+                name: newUser.name,
+                email: newUser.email
+            }
+        });
+
+    } catch (error) {
+        return res.status(500).json({ 
+            success: false, 
+            message: "Erro ao criar conta." 
+        });
+    }
 }

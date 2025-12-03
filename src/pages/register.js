@@ -1,53 +1,70 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Register() {
-    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
-    const togglePassword = (id) => {
-        const field = document.getElementById(id);
-        const toggle = field.parentElement.querySelector(".password-toggle");
-        const eyeClosed = toggle.querySelector(".eye-closed");
-        const eyeOpen = toggle.querySelector(".eye-open");
+    useEffect(() => {
+        window.togglePassword = (id) => {
+            const passwordField = document.getElementById(id);
+            const toggleBtn = passwordField.parentElement.querySelector(".password-toggle");
+            const eyeClosed = toggleBtn.querySelector(".eye-closed");
+            const eyeOpen = toggleBtn.querySelector(".eye-open");
 
-        if (field.type === "password") {
-            field.type = "text";
-            toggle.classList.add("active");
-            eyeClosed.style.display = "none";
-            eyeOpen.style.display = "block";
-        } else {
-            field.type = "password";
-            toggle.classList.remove("active");
-            eyeClosed.style.display = "block";
-            eyeOpen.style.display = "none";
-        }
-        field.focus();
-    };
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                toggleBtn.classList.add("active");
+                eyeClosed.style.display = "none";
+                eyeOpen.style.display = "block";
+            } else {
+                passwordField.type = "password";
+                toggleBtn.classList.remove("active");
+                eyeClosed.style.display = "block";
+                eyeOpen.style.display = "none";
+            }
+            passwordField.focus();
+        };
+    }, []);
 
-    async function handleSubmit(e) {
+    const handleRegister = async (e) => {
         e.preventDefault();
+        setLoading(true);
 
-        const name = e.target.name.value;
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        const confirm = e.target.confirm.value;
+        const name = document.getElementById("register-name").value;
+        const email = document.getElementById("register-email").value;
+        const password = document.getElementById("register-password").value;
+        const confirm = document.getElementById("register-confirm-password").value;
+
+        const message = document.getElementById("register-message");
 
         if (password !== confirm) {
-            setMessage("As senhas não coincidem");
+            message.textContent = "As senhas não coincidem!";
+            message.style.color = "red";
+            setLoading(false);
             return;
         }
 
-        const res = await fetch("/api/register", {
+        const res = await fetch("/api/auth/register", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ name, email, password })
+            body: JSON.stringify({ name, email, password }),
         });
 
         const data = await res.json();
-        setMessage(data.message);
+        message.textContent = data.message;
 
-        if (res.ok) window.location.href = "/login";
-    }
+        if (data.success) {
+            message.style.color = "limegreen";
+
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 800);
+        } else {
+            message.style.color = "red";
+        }
+
+        setLoading(false);
+    };
 
     return (
         <>
@@ -69,49 +86,58 @@ export default function Register() {
                             <p>Crie sua conta para começar</p>
                         </div>
 
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-message">{message}</div>
+                        <form id="register-form" onSubmit={handleRegister}>
+                            <div className="form-message" id="register-message"></div>
 
                             <div className="form-group">
-                                <label>Nome Completo</label>
-                                <input name="name" id="register-name" required />
+                                <label htmlFor="register-name">Nome Completo</label>
+                                <input type="text" id="register-name" className="form-control" required placeholder="Seu nome completo" />
                             </div>
 
                             <div className="form-group">
-                                <label>E-mail</label>
-                                <input name="email" id="register-email" type="email" required />
+                                <label htmlFor="register-email">E-mail</label>
+                                <input type="email" id="register-email" className="form-control" required placeholder="seu@email.com" />
                             </div>
 
                             <div className="form-group">
-                                <label>Senha</label>
+                                <label htmlFor="register-password">Senha</label>
                                 <div className="password-input-container">
-                                    <input name="password" id="register-password" type="password" required minLength={6} />
-                                    <button type="button" className="password-toggle" onClick={() => togglePassword("register-password")}>
-                                        <svg className="toggle-icon">
-                                            <path className="eye-closed" d="..." />
-                                            <path className="eye-open" style={{ display: "none" }} d="..." />
+                                    <input type="password" id="register-password" className="form-control" required minLength={6} placeholder="Mínimo 6 caracteres" />
+                                    <button type="button" className="password-toggle" onClick={() => window.togglePassword("register-password")}>
+                                        <svg className="toggle-icon" viewBox="0 0 24 24">
+                                            <path className="eye-closed" d="M12 4.5..." />
+                                            <path className="eye-open" style={{ display: "none" }} d="M12 7..." />
                                         </svg>
                                     </button>
                                 </div>
                             </div>
 
                             <div className="form-group">
-                                <label>Confirmar Senha</label>
+                                <label htmlFor="register-confirm-password">Confirmar Senha</label>
                                 <div className="password-input-container">
-                                    <input name="confirm" id="register-confirm-password" type="password" required />
-                                    <button type="button" className="password-toggle" onClick={() => togglePassword("register-confirm-password")}>
-                                        <svg className="toggle-icon">
-                                            <path className="eye-closed" d="..." />
-                                            <path className="eye-open" style={{ display: "none" }} d="..." />
+                                    <input type="password" id="register-confirm-password" className="form-control" required placeholder="Digite a senha novamente" />
+                                    <button type="button" className="password-toggle" onClick={() => window.togglePassword("register-confirm-password")}>
+                                        <svg className="toggle-icon" viewBox="0 0 24 24">
+                                            <path className="eye-closed" d="M12 4.5..." />
+                                            <path className="eye-open" style={{ display: "none" }} d="M12 7..." />
                                         </svg>
                                     </button>
                                 </div>
                             </div>
 
-                            <button className="btn-login" type="submit">Criar Conta</button>
+                            <div className="form-options">
+                                <label className="remember-me">
+                                    <input type="checkbox" id="accept-terms" required />
+                                    Aceito os <a href="#" style={{ color: "var(--primary)" }}>termos de uso</a>
+                                </label>
+                            </div>
+
+                            <button type="submit" className="btn-login" id="register-btn">
+                                {loading ? "Criando conta..." : "Criar Conta"}
+                            </button>
 
                             <div className="register-link">
-                                Já tem conta? <a href="/login">Entrar</a>
+                                Já tem uma conta? <a href="/login">Fazer login</a>
                             </div>
                         </form>
                     </div>

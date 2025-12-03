@@ -1,48 +1,76 @@
+// pages/login.js - ATUALIZADO
 import Head from "next/head";
 import { useState } from "react";
+import { useAuth } from "@/context/AuthContext";
+import { useRouter } from "next/router";
 
 export default function LoginPage() {
+    const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
+    const [messageType, setMessageType] = useState("");
+    const { login } = useAuth();
+    const router = useRouter();
 
     const togglePassword = (id) => {
-        const field = document.getElementById(id);
-        const toggle = field.parentElement.querySelector(".password-toggle");
-        const eyeClosed = toggle.querySelector(".eye-closed");
-        const eyeOpen = toggle.querySelector(".eye-open");
+        const passwordField = document.getElementById(id);
+        const toggleBtn = passwordField.parentElement.querySelector(".password-toggle");
+        const eyeClosed = toggleBtn.querySelector(".eye-closed");
+        const eyeOpen = toggleBtn.querySelector(".eye-open");
 
-        if (field.type === "password") {
-            field.type = "text";
-            toggle.classList.add("active");
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            toggleBtn.classList.add("active");
             eyeClosed.style.display = "none";
             eyeOpen.style.display = "block";
         } else {
-            field.type = "password";
-            toggle.classList.remove("active");
+            passwordField.type = "password";
+            toggleBtn.classList.remove("active");
             eyeClosed.style.display = "block";
             eyeOpen.style.display = "none";
         }
-        field.focus();
+        passwordField.focus();
     };
 
-    async function handleSubmit(e) {
+    const handleLogin = async (e) => {
         e.preventDefault();
+        setLoading(true);
+        setMessage("");
 
-        const email = e.target.email.value;
-        const password = e.target.password.value;
+        const email = document.getElementById("login-email").value;
+        const password = document.getElementById("login-password").value;
 
-        const res = await fetch("/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
-        });
+        try {
+            const res = await fetch("/api/auth/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            });
 
-        const data = await res.json();
-        setMessage(data.message);
-
-        if (res.ok) {
-            window.location.href = "/dashboard";
+            const data = await res.json();
+            
+            if (data.success) {
+                setMessage("Login bem-sucedido! Redirecionando...");
+                setMessageType("success");
+                
+                // Usar o contexto para login
+                login(data.token, data.user.name);
+                
+                // Redirecionar
+                setTimeout(() => {
+                    router.push("/");
+                }, 1000);
+            } else {
+                setMessage(data.message || "Erro ao fazer login");
+                setMessageType("error");
+            }
+        } catch (error) {
+            console.error("Erro ao fazer login:", error);
+            setMessage("Erro de conexão. Tente novamente.");
+            setMessageType("error");
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <>
@@ -64,31 +92,95 @@ export default function LoginPage() {
                             <p>Entre na sua conta para continuar</p>
                         </div>
 
-                        <form onSubmit={handleSubmit}>
-                            <div className="form-message">{message}</div>
+                        <form id="login-form" onSubmit={handleLogin}>
+                            {message && (
+                                <div 
+                                    className="form-message" 
+                                    style={{ 
+                                        color: messageType === "success" ? "limegreen" : "red",
+                                        padding: "12px",
+                                        borderRadius: "8px",
+                                        marginBottom: "20px",
+                                        backgroundColor: messageType === "success" ? "rgba(50, 205, 50, 0.1)" : "rgba(255, 0, 0, 0.1)",
+                                        border: `1px solid ${messageType === "success" ? "limegreen" : "red"}`,
+                                        textAlign: "center",
+                                        fontSize: "14px"
+                                    }}
+                                >
+                                    {message}
+                                </div>
+                            )}
 
                             <div className="form-group">
-                                <label>E-mail</label>
-                                <input id="login-email" name="email" type="email" required />
+                                <label htmlFor="login-email">E-mail</label>
+                                <input
+                                    type="email"
+                                    id="login-email"
+                                    className="form-control"
+                                    required
+                                    placeholder="seu@email.com"
+                                    disabled={loading}
+                                />
                             </div>
 
                             <div className="form-group">
-                                <label>Senha</label>
+                                <label htmlFor="login-password">Senha</label>
                                 <div className="password-input-container">
-                                    <input id="login-pass" name="password" type="password" required />
-                                    <button type="button" className="password-toggle" onClick={() => togglePassword("login-pass")}>
-                                        <svg className="toggle-icon">
-                                            <path className="eye-closed" d="..." />
-                                            <path className="eye-open" style={{ display: "none" }} d="..." />
+                                    <input
+                                        type="password"
+                                        id="login-password"
+                                        className="form-control"
+                                        required
+                                        placeholder="Sua senha"
+                                        disabled={loading}
+                                    />
+                                    <button
+                                        type="button"
+                                        className="password-toggle"
+                                        onClick={() => togglePassword("login-password")}
+                                        disabled={loading}
+                                    >
+                                        <svg className="toggle-icon" viewBox="0 0 24 24">
+                                            <path className="eye-closed" d="M12 4.5C7 4.5..." />
+                                            <path
+                                                className="eye-open"
+                                                style={{ display: "none" }}
+                                                d="M12 7c2.76..."
+                                            />
                                         </svg>
                                     </button>
                                 </div>
                             </div>
 
-                            <button className="btn-login" type="submit">Entrar</button>
+                            <div className="form-options">
+                                <label className="remember-me">
+                                    <input type="checkbox" id="remember-me" disabled={loading} />
+                                    Lembrar de mim
+                                </label>
+                                <a href="#" className="forgot-password">
+                                    Esqueci a senha
+                                </a>
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                className="btn-login" 
+                                disabled={loading}
+                                style={{
+                                    opacity: loading ? 0.7 : 1,
+                                    cursor: loading ? 'not-allowed' : 'pointer'
+                                }}
+                            >
+                                {loading ? (
+                                    <>
+                                        <span style={{ marginRight: '8px' }}>🔄</span>
+                                        Entrando...
+                                    </>
+                                ) : "Entrar"}
+                            </button>
 
                             <div className="register-link">
-                                Não tem conta? <a href="/register">Cadastre-se</a>
+                                Não tem uma conta? <a href="/register">Cadastre-se</a>
                             </div>
                         </form>
                     </div>
