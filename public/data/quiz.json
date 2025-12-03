@@ -1,0 +1,558 @@
+{
+  "questoes": [
+    {
+      "id": 1,
+      "titulo": "Questão 1",
+      "enunciado": "A Inteligência Artificial (IA) está cada vez mais presente no nosso dia a dia, sendo aplicada em diversas tarefas, sejam elas complexas ou banais. Um exemplo de IA que explodiu no ano de 2023 e vem sendo amplamente usada é o:",
+      "alternativas": [
+        { "letra": "A", "texto": "Seico.", "correta": false },
+        { "letra": "B", "texto": "ChatGPT.", "correta": true },
+        { "letra": "C", "texto": "EcoSystem.", "correta": false },
+        { "letra": "D", "texto": "Robotox.", "correta": false }
+      ]
+    },
+    {
+      "id": 2,
+      "titulo": "Questão 2",
+      "enunciado": "A inteligência artificial (IA) tem transformado diversos setores, como saúde, educação e transporte. No entanto, seu avanço também levanta questões éticas, como o uso de algoritmos que podem perpetuar vieses e discriminações. Além disso, há preocupações sobre o impacto da IA no mercado de trabalho, com a automação de funções antes desempenhadas por humanos. Um dos principais desafios éticos associados ao uso da inteligência artificial na sociedade contemporânea é:",
+      "alternativas": [
+        { "letra": "A", "texto": "Aumento da oferta de empregos em setores tradicionais.", "correta": false },
+        { "letra": "B", "texto": "Redução do consumo de energia elétrica.", "correta": false },
+        { "letra": "C", "texto": "Potencialização de vieses e discriminações sociais.", "correta": true },
+        { "letra": "D", "texto": "Diminuição da dependência de tecnologias digitais.", "correta": false },
+        { "letra": "E", "texto": "Eliminação de desigualdades econômicas.", "correta": false }
+      ]
+    },
+    {
+      "id": 3,
+      "titulo": "Questão 3",
+      "enunciado": "A Inteligência Artificial (IA) é usada para automatizar tarefas que normalmente exigiriam inteligência humana, como interpretar linguagem, reconhecer padrões, tomar decisões e aprender com dados. Com o avanço dessas tecnologias, surgiram ferramentas especializadas em diferentes aplicações, como produção de texto, análise de dados e geração de conteúdo visual. Assinale a alternativa que apresenta a ferramenta de IA cuja principal função é gerar imagens a partir de descrições textuais.",
+      "alternativas": [
+        { "letra": "A", "texto": "You.com.", "correta": false },
+        { "letra": "B", "texto": "Quillbot.", "correta": false },
+        { "letra": "C", "texto": "DALL·E.", "correta": true },
+        { "letra": "D", "texto": "Microsoft Copilot.", "correta": false },
+        { "letra": "E", "texto": "Notion AI.", "correta": false }
+      ]
+    },
+    {
+      "id": 4,
+      "titulo": "Questão 4",
+      "enunciado": "A Inteligência Artificial é um ramo da ciência da computação que busca criar sistemas capazes de simular a inteligência humana. Qual das seguintes áreas não está diretamente relacionada à Inteligência Artificial?",
+      "alternativas": [
+        { "letra": "A", "texto": "Processamento de Linguagem Natural.", "correta": false },
+        { "letra": "B", "texto": "Visão Computacional.", "correta": false },
+        { "letra": "C", "texto": "Robótica.", "correta": false },
+        { "letra": "D", "texto": "Compiladores.", "correta": true },
+        { "letra": "E", "texto": "Sistemas Especialistas.", "correta": false }
+      ]
+    },
+    {
+      "id": 5,
+      "titulo": "Questão 5",
+      "enunciado": "Em 2025, a inteligência artificial está cada vez mais presente em áreas como saúde, educação e segurança. Um dos principais debates sobre o uso da IA está relacionado a:",
+      "alternativas": [
+        { "letra": "A", "texto": "O fim do uso de computadores em empresas.", "correta": false },
+        { "letra": "B", "texto": "Seu alto custo de manutenção em países pobres.", "correta": false },
+        { "letra": "C", "texto": "O impacto sobre empregos e questões éticas.", "correta": true },
+        { "letra": "D", "texto": "A massificação do plágio e pirataria.", "correta": false }
+      ]
+    },
+    {
+      "id": 6,
+      "titulo": "Questão 6",
+      "enunciado": "A Inteligência Artificial (IA) tem se tornado uma forte presença na rotina das pessoas. Os recursos de IA vêm contribuindo para otimizar o tempo, mas também têm provocado muitas controvérsias. São exemplos de plataformas que possibilitam aos usuários utilizarem a IA na elaboração de materiais e resolução de problemas: I. ChatGPT. II. Gemini. III. DeepSeek. Quais estão corretos?",
+      "alternativas": [
+        { "letra": "A", "texto": "Apenas I.", "correta": false },
+        { "letra": "B", "texto": "Apenas II.", "correta": false },
+        { "letra": "C", "texto": "Apenas I e III.", "correta": false },
+        { "letra": "D", "texto": "Apenas II e III.", "correta": false },
+        { "letra": "E", "texto": "I, II e III.", "correta": true }
+      ]
+    },
+    {
+      "id": 7,
+      "titulo": "Questão 7",
+      "enunciado": "A inteligência artificial (IA) generativa, como o ChatGPT, tem se destacado na produção de textos e imagens a partir de comandos em linguagem natural. No entanto, o uso dessa tecnologia em áreas como educação e comunicação levanta debates sobre a necessidade de regulamentação, devido a preocupações como:",
+      "alternativas": [
+        { "letra": "A", "texto": "Aumento da produtividade e criatividade dos usuários, que podem gerar conteúdos mais rapidamente e com maior qualidade.", "correta": false },
+        { "letra": "B", "texto": "Disseminação de informações falsas e enviesadas.", "correta": true },
+        { "letra": "C", "texto": "Redução do custo de produção de conteúdo.", "correta": false },
+        { "letra": "D", "texto": "Melhora da qualidade da educação.", "correta": false }
+      ]
+    },
+    {
+      "id": 8,
+      "titulo": "Questão 8",
+      "enunciado": "Acerca do uso de inteligência artificial (IA) pelos tribunais, temos experiências bem-sucedidas no Brasil, as quais mostram a relevância da tecnologia para a melhoria da eficiência de atividades. Sobre o ponto, assinale a alternativa mais adequada.",
+      "alternativas": [
+        { "letra": "A", "texto": "A IA deve ser usada como fonte principal na fundamentação de decisões judiciais.", "correta": false },
+        { "letra": "B", "texto": "A IA pode ser usada como ferramenta auxiliar, devendo haver transparência em seu uso.", "correta": true },
+        { "letra": "C", "texto": "A IA deve substituir servidores e juízes leigos em decisões interlocutórias.", "correta": false }
+      ]
+    },
+    {
+      "id": 9,
+      "titulo": "Questão 9",
+      "enunciado": "Relacione os termos de Inteligência Artificial (IA) às suas respectivas definições. 1. IA fraca 2. IA forte 3. IA generativa 4. Teste de Turing.",
+      "alternativas": [
+        { "letra": "A", "texto": "(1) única tarefa; (2) multitarefa; (3) gera novos resultados; (4) máquina se passa por humano.", "correta": true },
+        { "letra": "B", "texto": "IA fraca é medida de inteligência; IA forte é algoritmo generativo.", "correta": false },
+        { "letra": "C", "texto": "IA generativa é sistema multitarefa; Teste de Turing é tarefa única.", "correta": false },
+        { "letra": "D", "texto": "IA fraca é multitarefa; IA forte é tarefa única.", "correta": false }
+      ]
+    },
+    {
+      "id": 10,
+      "titulo": "Questão 10",
+      "enunciado": "A inteligência artificial (IA) é um avanço tecnológico que permite que sistemas simulem uma inteligência similar à humana. Em relação à IA, assinalar a alternativa CORRETA:",
+      "alternativas": [
+        { "letra": "A", "texto": "Encontra-se ultrapassada e restrita a acadêmicos.", "correta": false },
+        { "letra": "B", "texto": "A IA reproduz habilidades humanas por meio de computadores e máquinas.", "correta": true },
+        { "letra": "C", "texto": "A IA traz impactos apenas no campo pessoal.", "correta": false },
+        { "letra": "D", "texto": "A IA tem emoção e consciência.", "correta": false },
+        { "letra": "E", "texto": "A IA substituirá totalmente o ser humano.", "correta": false }
+      ]
+    },
+    {
+      "id": 11,
+      "titulo": "Questão 11",
+      "enunciado": "O machine learning (aprendizado de máquina) é uma subárea da IA que permite aos sistemas:",
+      "alternativas": [
+        { "letra": "A", "texto": "Aprender e melhorar automaticamente com a experiência.", "correta": true },
+        { "letra": "B", "texto": "Funcionar sem qualquer tipo de dados.", "correta": false },
+        { "letra": "C", "texto": "Substituir completamente a inteligência humana.", "correta": false },
+        { "letra": "D", "texto": "Operar apenas com regras pré-definidas.", "correta": false }
+      ]
+    },
+    {
+      "id": 12,
+      "titulo": "Questão 12",
+      "enunciado": "Qual destes é um exemplo de IA forte (AGI - Artificial General Intelligence)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Um sistema que joga xadrez melhor que humanos.", "correta": false },
+        { "letra": "B", "texto": "Um assistente virtual que agenda compromissos.", "correta": false },
+        { "letra": "C", "texto": "Um robô com consciência e capacidade de raciocínio geral.", "correta": true },
+        { "letra": "D", "texto": "Um algoritmo de recomendação de filmes.", "correta": false }
+      ]
+    },
+    {
+      "id": 13,
+      "titulo": "Questão 13",
+      "enunciado": "O que é 'deep learning' (aprendizado profundo) na IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Um tipo de machine learning que usa redes neurais com muitas camadas.", "correta": true },
+        { "letra": "B", "texto": "Um sistema que aprende apenas com supervisão humana constante.", "correta": false },
+        { "letra": "C", "texto": "Uma IA que funciona apenas em computadores quânticos.", "correta": false },
+        { "letra": "D", "texto": "Um método de programação tradicional.", "correta": false }
+      ]
+    },
+    {
+      "id": 14,
+      "titulo": "Questão 14",
+      "enunciado": "Qual destas tecnologias NÃO é considerada um tipo de IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Reconhecimento facial.", "correta": false },
+        { "letra": "B", "texto": "Tradução automática.", "correta": false },
+        { "letra": "C", "texto": "Planilha eletrônica com fórmulas.", "correta": true },
+        { "letra": "D", "texto": "Carros autônomos.", "correta": false }
+      ]
+    },
+    {
+      "id": 15,
+      "titulo": "Questão 15",
+      "enunciado": "O que significa o termo 'NLP' (Natural Language Processing) em IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Processamento de Linguagem Natural - capacidade de entender e gerar linguagem humana.", "correta": true },
+        { "letra": "B", "texto": "Nova Linguagem de Programação.", "correta": false },
+        { "letra": "C", "texto": "Network Learning Process.", "correta": false },
+        { "letra": "D", "texto": "Neural Language Protocol.", "correta": false }
+      ]
+    },
+    {
+      "id": 16,
+      "titulo": "Questão 16",
+      "enunciado": "Qual empresa desenvolveu o modelo GPT (Generative Pre-trained Transformer)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Google.", "correta": false },
+        { "letra": "B", "texto": "Microsoft.", "correta": false },
+        { "letra": "C", "texto": "OpenAI.", "correta": true },
+        { "letra": "D", "texto": "Amazon.", "correta": false }
+      ]
+    },
+    {
+      "id": 17,
+      "titulo": "Questão 17",
+      "enunciado": "O que é 'computer vision' (visão computacional) em IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Capacidade de computadores entenderem e interpretarem o mundo visual.", "correta": true },
+        { "letra": "B", "texto": "Criação de imagens 3D para jogos.", "correta": false },
+        { "letra": "C", "texto": "Monitoramento de telas de computador.", "correta": false },
+        { "letra": "D", "texto": "Design de interfaces gráficas.", "correta": false }
+      ]
+    },
+    {
+      "id": 18,
+      "titulo": "Questão 18",
+      "enunciado": "Qual destes é um risco ético associado à IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Aumento da velocidade de processamento.", "correta": false },
+        { "letra": "B", "texto": "Vieses algorítmicos e discriminação.", "correta": true },
+        { "letra": "C", "texto": "Melhoria na qualidade de software.", "correta": false },
+        { "letra": "D", "texto": "Redução do consumo de energia.", "correta": false }
+      ]
+    },
+    {
+      "id": 19,
+      "titulo": "Questão 19",
+      "enunciado": "O que significa 'AGI' em inteligência artificial?",
+      "alternativas": [
+        { "letra": "A", "texto": "Artificial General Intelligence - IA com capacidades cognitivas humanas gerais.", "correta": true },
+        { "letra": "B", "texto": "Advanced Google Intelligence.", "correta": false },
+        { "letra": "C", "texto": "Automated General Interface.", "correta": false },
+        { "letra": "D", "texto": "Artificial Generated Information.", "correta": false }
+      ]
+    },
+    {
+      "id": 20,
+      "titulo": "Questão 20",
+      "enunciado": "Qual destas é uma aplicação prática de IA na medicina?",
+      "alternativas": [
+        { "letra": "A", "texto": "Diagnóstico por imagem assistido por computador.", "correta": true },
+        { "letra": "B", "texto": "Prescrição manual de medicamentos.", "correta": false },
+        { "letra": "C", "texto": "Cirurgia totalmente automatizada sem supervisão.", "correta": false },
+        { "letra": "D", "texto": "Atendimento humano substituído completamente.", "correta": false }
+      ]
+    },
+    {
+      "id": 21,
+      "titulo": "Questão 21",
+      "enunciado": "O que é 'transfer learning' (aprendizado por transferência) em IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Usar conhecimento aprendido em uma tarefa para resolver outra tarefa relacionada.", "correta": true },
+        { "letra": "B", "texto": "Transferir dados entre diferentes bancos de dados.", "correta": false },
+        { "letra": "C", "texto": "Mover modelos de IA entre diferentes computadores.", "correta": false },
+        { "letra": "D", "texto": "Compartilhar aprendizagem entre humanos e máquinas.", "correta": false }
+      ]
+    },
+    {
+      "id": 22,
+      "titulo": "Questão 22",
+      "enunciado": "Qual destes NÃO é um tipo comum de aprendizado de máquina?",
+      "alternativas": [
+        { "letra": "A", "texto": "Aprendizado supervisionado.", "correta": false },
+        { "letra": "B", "texto": "Aprendizado não supervisionado.", "correta": false },
+        { "letra": "C", "texto": "Aprendizado por reforço.", "correta": false },
+        { "letra": "D", "texto": "Aprendizado aleatório.", "correta": true }
+      ]
+    },
+    {
+      "id": 23,
+      "titulo": "Questão 23",
+      "enunciado": "O que são 'redes neurais artificiais'?",
+      "alternativas": [
+        { "letra": "A", "texto": "Sistemas computacionais inspirados no cérebro humano.", "correta": true },
+        { "letra": "B", "texto": "Conexões de internet de alta velocidade.", "correta": false },
+        { "letra": "C", "texto": "Dispositivos de hardware para IA.", "correta": false },
+        { "letra": "D", "texto": "Protocolos de comunicação entre IAs.", "correta": false }
+      ]
+    },
+    {
+      "id": 24,
+      "titulo": "Questão 24",
+      "enunciado": "Qual empresa desenvolveu o assistente virtual Alexa?",
+      "alternativas": [
+        { "letra": "A", "texto": "Amazon.", "correta": true },
+        { "letra": "B", "texto": "Google.", "correta": false },
+        { "letra": "C", "texto": "Apple.", "correta": false },
+        { "letra": "D", "texto": "Microsoft.", "correta": false }
+      ]
+    },
+    {
+      "id": 25,
+      "titulo": "Questão 25",
+      "enunciado": "O que é 'overfitting' (sobreajuste) em machine learning?",
+      "alternativas": [
+        { "letra": "A", "texto": "Quando o modelo se ajusta muito bem aos dados de treino mas não generaliza para novos dados.", "correta": true },
+        { "letra": "B", "texto": "Quando o modelo é muito simples para os dados.", "correta": false },
+        { "letra": "C", "texto": "Quando o modelo processa dados rapidamente.", "correta": false },
+        { "letra": "D", "texto": "Quando há excesso de dados de treinamento.", "correta": false }
+      ]
+    },
+    {
+      "id": 26,
+      "titulo": "Questão 26",
+      "enunciado": "Qual destas é uma técnica de IA usada para detectar fraudes?",
+      "alternativas": [
+        { "letra": "A", "texto": "Análise de anomalias e padrões suspeitos.", "correta": true },
+        { "letra": "B", "texto": "Geração de texto criativo.", "correta": false },
+        { "letra": "C", "texto": "Reconhecimento de voz.", "correta": false },
+        { "letra": "D", "texto": "Tradução automática.", "correta": false }
+      ]
+    },
+    {
+      "id": 27,
+      "titulo": "Questão 27",
+      "enunciado": "O que significa 'AI alignment' (alinhamento de IA)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Garantir que os objetivos da IA estejam alinhados com os valores humanos.", "correta": true },
+        { "letra": "B", "texto": "Alinhar diferentes modelos de IA para trabalharem juntos.", "correta": false },
+        { "letra": "C", "texto": "Sincronizar o tempo de processamento de IAs.", "correta": false },
+        { "letra": "D", "texto": "Organizar dados de treinamento de forma linear.", "correta": false }
+      ]
+    },
+    {
+      "id": 28,
+      "titulo": "Questão 28",
+      "enunciado": "Qual destes é um exemplo de IA generativa?",
+      "alternativas": [
+        { "letra": "A", "texto": "Midjourney (gera imagens a partir de texto).", "correta": true },
+        { "letra": "B", "texto": "Antivírus.", "correta": false },
+        { "letra": "C", "texto": "Sistema de recomendação da Netflix.", "correta": false },
+        { "letra": "D", "texto": "Reconhecimento facial para desbloqueio de celular.", "correta": false }
+      ]
+    },
+    {
+      "id": 29,
+      "titulo": "Questão 29",
+      "enunciado": "O que é 'reinforcement learning' (aprendizado por reforço)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Sistema aprende através de tentativa e erro com recompensas e punições.", "correta": true },
+        { "letra": "B", "texto": "Aprendizado com dados rotulados.", "correta": false },
+        { "letra": "C", "texto": "Aprendizado sem qualquer feedback.", "correta": false },
+        { "letra": "D", "texto": "Aprendizado apenas com supervisão humana.", "correta": false }
+      ]
+    },
+    {
+      "id": 30,
+      "titulo": "Questão 30",
+      "enunciado": "Qual destes NÃO é um framework popular para machine learning?",
+      "alternativas": [
+        { "letra": "A", "texto": "TensorFlow.", "correta": false },
+        { "letra": "B", "texto": "PyTorch.", "correta": false },
+        { "letra": "C", "texto": "Scikit-learn.", "correta": false },
+        { "letra": "D", "texto": "Java Spring.", "correta": true }
+      ]
+    },
+    {
+      "id": 31,
+      "titulo": "Questão 31",
+      "enunciado": "O que é 'computer vision' usado para fazer?",
+      "alternativas": [
+        { "letra": "A", "texto": "Reconhecer objetos em imagens e vídeos.", "correta": true },
+        { "letra": "B", "texto": "Melhorar a visão humana.", "correta": false },
+        { "letra": "C", "texto": "Criar óculos inteligentes.", "correta": false },
+        { "letra": "D", "texto": "Desenvolver telas de alta resolução.", "correta": false }
+      ]
+    },
+    {
+      "id": 32,
+      "titulo": "Questão 32",
+      "enunciado": "Qual destes é um desafio atual da IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Falta de dados para treinamento.", "correta": false },
+        { "letra": "B", "texto": "Transparência e explicabilidade dos modelos (black box).", "correta": true },
+        { "letra": "C", "texto": "Impossibilidade de processar textos.", "correta": false },
+        { "letra": "D", "texto": "Dificuldade em realizar cálculos simples.", "correta": false }
+      ]
+    },
+    {
+      "id": 33,
+      "titulo": "Questão 33",
+      "enunciado": "O que é 'NLP' usado para fazer?",
+      "alternativas": [
+        { "letra": "A", "texto": "Analisar sentimentos em textos.", "correta": true },
+        { "letra": "B", "texto": "Processar linguagens de programação.", "correta": false },
+        { "letra": "C", "texto": "Otimizar redes neurais.", "correta": false },
+        { "letra": "D", "texto": "Traduzir código entre linguagens.", "correta": false }
+      ]
+    },
+    {
+      "id": 34,
+      "titulo": "Questão 34",
+      "enunciado": "Qual destes é um exemplo de IA no varejo?",
+      "alternativas": [
+        { "letra": "A", "texto": "Sistemas de recomendação de produtos.", "correta": true },
+        { "letra": "B", "texto": "Caixas registradoras manuais.", "correta": false },
+        { "letra": "C", "texto": "Estoque controlado por planilhas.", "correta": false },
+        { "letra": "D", "texto": "Atendimento apenas humano.", "correta": false }
+      ]
+    },
+    {
+      "id": 35,
+      "titulo": "Questão 35",
+      "enunciado": "O que significa 'AI ethics' (ética da IA)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Estudo dos impactos morais e sociais da IA.", "correta": true },
+        { "letra": "B", "texto": "Código de conduta para programadores.", "correta": false },
+        { "letra": "C", "texto": "Regras para uso de computadores.", "correta": false },
+        { "letra": "D", "texto": "Ética apenas para usuários finais.", "correta": false }
+      ]
+    },
+    {
+      "id": 36,
+      "titulo": "Questão 36",
+      "enunciado": "Qual destes é um uso da IA na agricultura?",
+      "alternativas": [
+        { "letra": "A", "texto": "Monitoramento de plantações com drones e sensores.", "correta": true },
+        { "letra": "B", "texto": "Colheita manual tradicional.", "correta": false },
+        { "letra": "C", "texto": "Irrigação baseada apenas na intuição.", "correta": false },
+        { "letra": "D", "texto": "Plantio sem qualquer análise de solo.", "correta": false }
+      ]
+    },
+    {
+      "id": 37,
+      "titulo": "Questão 37",
+      "enunciado": "O que é 'bias' (viés) em algoritmos de IA?",
+      "alternativas": [
+        { "letra": "A", "texto": "Tendência injusta resultante de dados de treinamento inadequados.", "correta": true },
+        { "letra": "B", "texto": "Erro de programação simples.", "correta": false },
+        { "letra": "C", "texto": "Falta de capacidade de processamento.", "correta": false },
+        { "letra": "D", "texto": "Vantagem competitiva de uma IA.", "correta": false }
+      ]
+    },
+    {
+      "id": 38,
+      "titulo": "Questão 38",
+      "enunciado": "Qual destes é um exemplo de IA na educação?",
+      "alternativas": [
+        { "letra": "A", "texto": "Tutores inteligentes personalizados.", "correta": true },
+        { "letra": "B", "texto": "Quadro negro tradicional.", "correta": false },
+        { "letra": "C", "texto": "Livros físicos sem interatividade.", "correta": false },
+        { "letra": "D", "texto": "Aulas apenas presenciais.", "correta": false }
+      ]
+    },
+    {
+      "id": 39,
+      "titulo": "Questão 39",
+      "enunciado": "O que é 'AI safety' (segurança da IA)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Campo que estuda como garantir que sistemas de IA sejam seguros e benéficos.", "correta": true },
+        { "letra": "B", "texto": "Proteção de dados pessoais apenas.", "correta": false },
+        { "letra": "C", "texto": "Segurança física de robôs.", "correta": false },
+        { "letra": "D", "texto": "Backup de sistemas de IA.", "correta": false }
+      ]
+    },
+    {
+      "id": 40,
+      "titulo": "Questão 40",
+      "enunciado": "Qual destes é um uso da IA no setor financeiro?",
+      "alternativas": [
+        { "letra": "A", "texto": "Detecção de transações fraudulentas.", "correta": true },
+        { "letra": "B", "texto": "Contabilidade manual com livros-caixa.", "correta": false },
+        { "letra": "C", "texto": "Atendimento apenas presencial em agências.", "correta": false },
+        { "letra": "D", "texto": "Cálculos feitos apenas com calculadora.", "correta": false }
+      ]
+    },
+    {
+      "id": 41,
+      "titulo": "Questão 41",
+      "enunciado": "O que são 'GANs' (Generative Adversarial Networks)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Redes neurais que competem entre si para gerar conteúdo realista.", "correta": true },
+        { "letra": "B", "texto": "Sistemas de segurança para redes.", "correta": false },
+        { "letra": "C", "texto": "Protocolos de internet para IA.", "correta": false },
+        { "letra": "D", "texto": "Dispositivos de hardware especializado.", "correta": false }
+      ]
+    },
+    {
+      "id": 42,
+      "titulo": "Questão 42",
+      "enunciado": "Qual destes é um exemplo de IA nos transportes?",
+      "alternativas": [
+        { "letra": "A", "texto": "Carros autônomos.", "correta": true },
+        { "letra": "B", "texto": "Direção apenas humana.", "correta": false },
+        { "letra": "C", "texto": "Mapas de papel.", "correta": false },
+        { "letra": "D", "texto": "Semáforos com temporizadores fixos.", "correta": false }
+      ]
+    },
+    {
+      "id": 43,
+      "titulo": "Questão 43",
+      "enunciado": "O que é 'explainable AI' (IA explicável)?",
+      "alternativas": [
+        { "letra": "A", "texto": "IA cujas decisões podem ser compreendidas por humanos.", "correta": true },
+        { "letra": "B", "texto": "IA que explica conceitos complexos.", "correta": false },
+        { "letra": "C", "texto": "Sistema de tutoria inteligente.", "correta": false },
+        { "letra": "D", "texto": "IA que fala vários idiomas.", "correta": false }
+      ]
+    },
+    {
+      "id": 44,
+      "titulo": "Questão 44",
+      "enunciado": "Qual destes é um uso da IA no entretenimento?",
+      "alternativas": [
+        { "letra": "A", "texto": "Recomendação de filmes e músicas.", "correta": true },
+        { "letra": "B", "texto": "Transmissão de rádio tradicional.", "correta": false },
+        { "letra": "C", "texto": "Livros físicos sem recomendação.", "correta": false },
+        { "letra": "D", "texto": "Cinema sem qualquer personalização.", "correta": false }
+      ]
+    },
+    {
+      "id": 45,
+      "titulo": "Questão 45",
+      "enunciado": "O que é 'edge AI' (IA na borda)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Processamento de IA diretamente em dispositivos locais, não na nuvem.", "correta": true },
+        { "letra": "B", "texto": "IA para design de bordas em imagens.", "correta": false },
+        { "letra": "C", "texto": "Tecnologia de ponta em hardware.", "correta": false },
+        { "letra": "D", "texto": "IA para detectar bordas em objetos.", "correta": false }
+      ]
+    },
+    {
+      "id": 46,
+      "titulo": "Questão 46",
+      "enunciado": "Qual destes é um exemplo de IA no atendimento ao cliente?",
+      "alternativas": [
+        { "letra": "A", "texto": "Chatbots para suporte automático.", "correta": true },
+        { "letra": "B", "texto": "Atendimento apenas por carta.", "correta": false },
+        { "letra": "C", "texto": "Balcões de atendimento sem tecnologia.", "correta": false },
+        { "letra": "D", "texto": "Telefones fixos sem funcionalidades inteligentes.", "correta": false }
+      ]
+    },
+    {
+      "id": 47,
+      "titulo": "Questão 47",
+      "enunciado": "O que é 'federated learning' (aprendizado federado)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Treinamento de IA em dispositivos locais sem compartilhar dados brutos.", "correta": true },
+        { "letra": "B", "texto": "Aprendizado entre diferentes federações.", "correta": false },
+        { "letra": "C", "texto": "Sistema de governo para IAs.", "correta": false },
+        { "letra": "D", "texto": "Método de aprendizado rápido.", "correta": false }
+      ]
+    },
+    {
+      "id": 48,
+      "titulo": "Questão 48",
+      "enunciado": "Qual destes é um uso da IA na segurança?",
+      "alternativas": [
+        { "letra": "A", "texto": "Reconhecimento facial para controle de acesso.", "correta": true },
+        { "letra": "B", "texto": "Fechaduras mecânicas tradicionais.", "correta": false },
+        { "letra": "C", "texto": "Senhas em papel.", "correta": false },
+        { "letra": "D", "texto": "Câmeras sem análise inteligente.", "correta": false }
+      ]
+    },
+    {
+      "id": 49,
+      "titulo": "Questão 49",
+      "enunciado": "O que é 'AI winter' (inverno da IA)?",
+      "alternativas": [
+        { "letra": "A", "texto": "Período de redução no financiamento e interesse em pesquisa de IA.", "correta": true },
+        { "letra": "B", "texto": "IA para previsão do tempo no inverno.", "correta": false },
+        { "letra": "C", "texto": "Sistema de IA para aquecimento.", "correta": false },
+        { "letra": "D", "texto": "Estação do ano favorável para desenvolver IA.", "correta": false }
+      ]
+    },
+    {
+      "id": 50,
+      "titulo": "Questão 50",
+      "enunciado": "Qual destes é um exemplo de IA na criação de conteúdo?",
+      "alternativas": [
+        { "letra": "A", "texto": "Geradores de texto e imagens como ChatGPT e DALL-E.", "correta": true },
+        { "letra": "B", "texto": "Escrita manual sem assistência.", "correta": false },
+        { "letra": "C", "texto": "Pintura tradicional com tinta e pincel.", "correta": false },
+        { "letra": "D", "texto": "Fotografia analógica sem edição.", "correta": false }
+      ]
+    }
+  ]
+}
