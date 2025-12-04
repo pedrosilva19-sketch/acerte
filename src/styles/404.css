@@ -1,0 +1,101 @@
+/* ===== 404 NOT FOUND - ESTILO COMPLETO ===== */
+.notfound-container {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xxxl) var(--spacing-md);
+  text-align: center;
+  z-index: 10;                         /* fica na frente do vídeo */
+  backdrop-filter: blur(4px);
+}
+
+.notfound-content {
+  max-width: 900px;
+  animation: fadeIn var(--transition-slow);
+}
+
+.notfound-content h1 {
+  font-size: 14rem;
+  font-weight: 900;
+  margin: 0;
+  line-height: 1;
+  background: linear-gradient(90deg, #5a9aff, #8bbfff, #5a9aff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 50px rgba(90, 154, 255, 0.7);
+}
+
+.notfound-content h1 span {
+  color: #ff6b6b;
+  text-shadow: 0 0 50px rgba(255, 107, 107, 0.7);
+}
+
+.notfound-content h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin: 20px 0 15px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.notfound-content p {
+  font-size: 1.35rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.8;
+}
+
+/* Botão Voltar ao Início */
+.btn-404 {
+  display: inline-block;
+  padding: 18px 45px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: white;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  border: none;
+  border-radius: var(--radius-pill);
+  box-shadow: var(--glow), var(--shadow-heavy);
+  cursor: pointer;
+  transition: all var(--transition);
+  text-decoration: none;
+}
+
+.btn-404:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 60px var(--primary-hover);
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+}
+
+/* Responsividade perfeita */
+@media (max-width: 992px) {
+  .notfound-content h1 { font-size: 11rem; }
+  .notfound-content h2 { font-size: 2.6rem; }
+}
+
+@media (max-width: 768px) {
+  .notfound-content h1 { font-size: 9rem; }
+  .notfound-content h2 { font-size: 2.3rem; }
+  .notfound-content p { font-size: 1.2rem; }
+  .btn-404 { padding: 16px 38px; font-size: 1.2rem; }
+}
+
+@media (max-width: 576px) {
+  .notfound-content h1 { font-size: 7rem; }
+  .notfound-content h2 { font-size: 2rem; }
+  .notfound-content p { font-size: 1.1rem; }
+  .btn-404 { 
+    width: 90%;
+    max-width: 320px;
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 400px) {
+  .notfound-content h1 { font-size: 5.5rem; }
+}
